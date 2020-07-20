@@ -1,6 +1,6 @@
 package com.biteacon;
 
-import com.biteacon.services.SearchService;
+import com.biteacon.constants.BotConfig;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -14,7 +14,7 @@ public class ExplorerBot extends TelegramLongPollingBot {
             // Set variables
             String message_text = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
-            String response_message_text = SearchService.getInstance().search(message_text);
+            String response_message_text = CommandFilter.getInstance().matchCommands(message_text);
             SendMessage message = new SendMessage() // Create a message object object
                     .setChatId(chat_id)
                     .setText(response_message_text);

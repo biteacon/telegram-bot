@@ -1,6 +1,6 @@
 package com.biteacon.services;
 
-import com.biteacon.BotConfig;
+import com.biteacon.constants.BotConfig;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,18 +22,7 @@ public class SearchService {
         duration = Duration.ofMinutes(1);
     }
 
-    public String search(String key) {
-        try {
-
-            return getAccountByAddress(key) + "\n\n" + getTransactionByHash(key) +
-                    "\n\n" + getBlockByHeight(key) + "\n\n" + getBlockByHash(key);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return "404";
-    }
-
-    private String getBlockByHash(String hash) throws IOException, InterruptedException {
+    public String getBlockByHash(String hash) throws IOException, InterruptedException {
         return executeQuery(getRequestBody(getBlockByHashRequest(hash)));
     }
 
@@ -52,7 +41,7 @@ public class SearchService {
                 "}\n";
     }
 
-    private String getBlockByHeight(String height) throws IOException, InterruptedException {
+    public String getBlockByHeight(String height) throws IOException, InterruptedException {
         return executeQuery(getRequestBody(getBlockByHeightRequest(height)));
     }
 
@@ -71,7 +60,7 @@ public class SearchService {
                 "}\n";
     }
 
-    private String getTransactionByHash(String hash) throws IOException, InterruptedException {
+    public String getTransactionByHash(String hash) throws IOException, InterruptedException {
         return executeQuery(getRequestBody(getTransactionByHashRequest(hash)));
     }
 
@@ -94,7 +83,7 @@ public class SearchService {
                 "}\n";
     }
 
-    private String getAccountByAddress(String address) throws IOException, InterruptedException {
+    public String getAccountByAddress(String address) throws IOException, InterruptedException {
         return executeQuery(getRequestBody(getAccountByAddressRequest(address)));
     }
 
