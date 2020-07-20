@@ -39,7 +39,7 @@ public class CommandFilter {
     }
 
     public String matchCommands(String request) {
-        Command command = commands.get(request);
+        Command command = commands.get(request.toLowerCase());
         if (command == null) {
 //            todo: need to add logic for "/" with brute commands
             for (String commandName : getCommandNamesByRequest(request)) {
