@@ -24,11 +24,74 @@ public class SearchService {
 
     public String search(String key) {
         try {
-            return getAccountByAddress(key);
+
+            return getAccountByAddress(key) + "\n\n" + getTransactionByHash(key) +
+                    "\n\n" + getBlockByHeight(key) + "\n\n" + getBlockByHash(key);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return "404";
+    }
+
+    private String getBlockByHash(String hash) throws IOException, InterruptedException {
+        return executeQuery(getRequestBody(getBlockByHashRequest(hash)));
+    }
+
+    private String getBlockByHashRequest(String hash) {
+        return "query MyQuery {\n" +
+                "  likelib_blocks(where: {hash: {_eq: \\\"" + hash + "\\\"}}) {\n" +
+                "    hash\n" +
+                "    height\n" +
+                "    prev_block_hash\n" +
+                "    nonce\n" +
+                "    timestamp\n" +
+                "    transactions {\n" +
+                "      hash\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n";
+    }
+
+    private String getBlockByHeight(String height) throws IOException, InterruptedException {
+        return executeQuery(getRequestBody(getBlockByHeightRequest(height)));
+    }
+
+    private String getBlockByHeightRequest(String height) {
+        return "query MyQuery {\n" +
+                "  likelib_blocks(where: {height: {_eq: \\\"" + height + "\\\"}}) {\n" +
+                "    hash\n" +
+                "    height\n" +
+                "    prev_block_hash\n" +
+                "    nonce\n" +
+                "    timestamp\n" +
+                "    transactions {\n" +
+                "      hash\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n";
+    }
+
+    private String getTransactionByHash(String hash) throws IOException, InterruptedException {
+        return executeQuery(getRequestBody(getTransactionByHashRequest(hash)));
+    }
+
+    private String getTransactionByHashRequest(String hash) {
+        return "query MyQuery {\n" +
+                "  likelib_transactions(where: {hash: {_eq: \\\"" + hash + "\\\"}}) {\n" +
+                "    hash\n" +
+                "    block_height\n" +
+                "    amount\n" +
+                "    account_from\n" +
+                "    account_to\n" +
+                "    fee\n" +
+                "    status\n" +
+                "    timestamp\n" +
+                "    type\n" +
+                "    message\n" +
+                "    sign\n" +
+                "    data\n" +
+                "  }\n" +
+                "}\n";
     }
 
     private String getAccountByAddress(String address) throws IOException, InterruptedException {
