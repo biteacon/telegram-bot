@@ -15,16 +15,16 @@ public class ExplorerBot extends TelegramLongPollingBot {
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
             // Set variables
-            String message_text = update.getMessage().getText();
-            long chat_id = update.getMessage().getChatId();
-            String response_message_text = CommandOrchestrator.getInstance().matchCommands(message_text);
+            String messageText = update.getMessage().getText();
+            long chatId = update.getMessage().getChatId();
+            String responseMessageText = CommandOrchestrator.getInstance().matchCommands(messageText);
 
             // get QR file from text using defaults
-            File file = QRCode.from(message_text).file();
-            SendPhoto message = new SendPhoto().setChatId(chat_id).setPhoto(file).setCaption(response_message_text);
+            File file = QRCode.from(messageText).file();
+            SendPhoto message = new SendPhoto().setChatId(chatId).setPhoto(file).setCaption(responseMessageText);
 //            SendMessage message = new SendMessage() // Create a message object object
-//                    .setChatId(chat_id)
-//                    .setText(response_message_text);
+//                    .setChatId(chatId)
+//                    .setText(responseMessageText);
             try {
                 execute(message); // Sending our message object to user
             } catch (TelegramApiException e) {
