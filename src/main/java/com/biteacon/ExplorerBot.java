@@ -3,7 +3,6 @@ package com.biteacon;
 import com.biteacon.constants.BotConfig;
 import net.glxn.qrgen.javase.QRCode;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -18,7 +17,7 @@ public class ExplorerBot extends TelegramLongPollingBot {
             // Set variables
             String message_text = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
-            String response_message_text = CommandFilter.getInstance().matchCommands(message_text);
+            String response_message_text = CommandOrchestrator.getInstance().matchCommands(message_text);
 
             // get QR file from text using defaults
             File file = QRCode.from(message_text).file();

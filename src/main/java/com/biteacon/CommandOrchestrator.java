@@ -15,15 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommandFilter {
+public class CommandOrchestrator {
     private Map<String, Command> commands;
     private Map<String, Command> bruteCommands;
 
-    public static CommandFilter getInstance() {
+    public static CommandOrchestrator getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
-    private CommandFilter() {
+    private CommandOrchestrator() {
         commands = new HashMap<>(){{
             put(Commands.HELP, new HelpCommand());
             put(Commands.HELP2, new HelpCommand());
@@ -76,6 +76,6 @@ public class CommandFilter {
     }
 
     private static class SingletonHolder {
-        private static CommandFilter INSTANCE = new CommandFilter();
+        private static CommandOrchestrator INSTANCE = new CommandOrchestrator();
     }
 }
