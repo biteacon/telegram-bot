@@ -2,6 +2,8 @@ package com.biteacon.services;
 
 import com.biteacon.POJOs.*;
 
+import java.util.List;
+
 public class TransformationService {
     public static TransformationService getInstance() {
         return SingletonHolder.INSTANCE;
@@ -23,17 +25,7 @@ public class TransformationService {
                 "\n<b>Balance:</b> <code>" + account.getBalance() + "</code>" +
                 "\n<b>Type:</b> <code>" + account.getType() + "</code>" +
                 "\n<b>Nonce:</b> <code>" + account.getNonce() + "</code>");
-        if (account.getTransactions() != null && account.getTransactions().size() > 0) {
-            transformation.
-                    append("\n\n<b>Transactions(<code>").
-                    append(account.getTransactions().size()).
-                    append("</code>):</b>\n\n");
-            for (Transaction transaction : account.getTransactions()) {
-                transformation.
-                        append(getLinkedHash(transaction.getHash())).
-                        append("\n\n");
-            }
-        }
+        transformSubtransactions(transformation, account.getTransactions());
         if (account.getBlocks() != null && account.getBlocks().size() > 0) {
             transformation.
                     append("\n\n<b>Blocks(<code>").
@@ -64,18 +56,22 @@ public class TransformationService {
                 "\n<b>Previous block hash:</b> " + getLinkedHash(block.getPrevBlockHash()) +
                 "\n<b>Nonce:</b> <code>" + block.getNonce() +
                 "</code>\n<b>Timestamp:</b> <code>" + block.getTimestamp() + "</code>");
-        if (block.getTransactions() != null && block.getTransactions().size() > 0) {
+        transformSubtransactions(transformation, block.getTransactions());
+        return transformation.toString();
+    }
+
+    private void transformSubtransactions(StringBuilder transformation, List<Transaction> transactions) {
+        if (transactions != null && transactions.size() > 0) {
             transformation.
                     append("\n\n<b>Transactions(<code>").
-                    append(block.getTransactions().size()).
+                    append(transactions.size()).
                     append("</code>):</b>\n\n");
-            for (Transaction transaction : block.getTransactions()) {
+            for (Transaction transaction : transactions) {
                 transformation.
                         append(getLinkedHash(transaction.getHash())).
                         append("\n\n");
             }
         }
-        return transformation.toString();
     }
 
     public String getFormattedTransaction(TransactionResponse transaction) {
