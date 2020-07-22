@@ -52,6 +52,7 @@ public class SearchService {
                 "    hash\n" +
                 "    height\n" +
                 "    prev_block_hash\n" +
+                "    coinbase\n" +
                 "    nonce\n" +
                 "    timestamp\n" +
                 "    transactions {\n" +
