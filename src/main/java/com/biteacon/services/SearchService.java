@@ -97,6 +97,9 @@ public class SearchService {
                 "    transactions {\n" +
                 "      hash\n" +
                 "    }\n" +
+                "    blocks {\n" +
+                "      height\n" +
+                "    }\n" +
                 "  }\n" +
                 "}\n";
     }
