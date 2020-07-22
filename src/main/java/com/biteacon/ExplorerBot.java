@@ -21,7 +21,7 @@ public class ExplorerBot extends TelegramLongPollingBot {
 
             // get QR file from text using defaults
             File file = QRCode.from(messageText).file();
-            SendPhoto message = new SendPhoto().setChatId(chatId).setPhoto(file).setCaption(responseMessageText);
+            SendPhoto message = new SendPhoto().setChatId(chatId).setPhoto(file).setCaption(responseMessageText).setParseMode("html");
 //            SendMessage message = new SendMessage() // Create a message object object
 //                    .setChatId(chatId)
 //                    .setText(responseMessageText);

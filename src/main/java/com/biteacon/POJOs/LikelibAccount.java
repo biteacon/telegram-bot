@@ -18,7 +18,7 @@ public class LikelibAccount {
     @SerializedName("nonce")
     private Long mNonce;
     @SerializedName("transactions")
-    private List<Object> mTransactions;
+    private List<Transaction> mTransactions;
     @SerializedName("type")
     private String mType;
 
@@ -54,11 +54,11 @@ public class LikelibAccount {
         mNonce = nonce;
     }
 
-    public List<Object> getTransactions() {
+    public List<Transaction> getTransactions() {
         return mTransactions;
     }
 
-    public void setTransactions(List<Object> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         mTransactions = transactions;
     }
 
