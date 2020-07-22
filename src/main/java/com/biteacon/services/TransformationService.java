@@ -3,6 +3,8 @@ package com.biteacon.services;
 import com.biteacon.POJOs.*;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TransformationService {
     public static TransformationService getInstance() {
@@ -21,7 +23,7 @@ public class TransformationService {
 
     private String transformAccount(LikelibAccount account) {
         StringBuilder transformation = new StringBuilder(
-                "<b>Account:</b> " + getLinkedHash(account.getAddress()) +
+                "<b>Account:</b> " + getLinkedAddress(account.getAddress()) +
                 "\n<b>Balance:</b> <code>" + account.getBalance() + "</code>" +
                 "\n<b>Type:</b> <code>" + account.getType() + "</code>" +
                 "\n<b>Nonce:</b> <code>" + account.getNonce() + "</code>");
@@ -52,7 +54,7 @@ public class TransformationService {
         StringBuilder transformation = new StringBuilder(
                 "<b>Block</b>\n<b>Height:</b> " + getLinkedBlock(block.getHeight()) +
                 "\n<b>Hash:</b> " + getLinkedHash(block.getHash()) +
-                "\n<b>Coinbase:</b> " + getLinkedHash(block.getCoinbase()) +
+                "\n<b>Coinbase:</b> " + getLinkedAddress(block.getCoinbase()) +
                 "\n<b>Previous block hash:</b> " + getLinkedHash(block.getPrevBlockHash()) +
                 "\n<b>Nonce:</b> <code>" + block.getNonce() +
                 "</code>\n<b>Timestamp:</b> <code>" + block.getTimestamp() + "</code>");
@@ -87,8 +89,8 @@ public class TransformationService {
                 "<b>Transaction</b>\n<b>Hash:</b> " + getLinkedHash(transaction.getHash()) +
                         "\n<b>Block height:</b> " + getLinkedBlock(transaction.getBlockHeight()) +
                         "\n<b>Coinbase:</b> <code>" + transaction.getAmount() +
-                        "</code>\n<b>Account from:</b> " + getLinkedHash(transaction.getAccountFrom()) +
-                        "\n<b>Account to:</b> " + getLinkedHash(transaction.getAccountTo()) +
+                        "</code>\n<b>Account from:</b> " + getLinkedAddress(transaction.getAccountFrom()) +
+                        "\n<b>Account to:</b> " + getLinkedAddress(transaction.getAccountTo()) +
                         "\n<b>Fee:</b> <code>" + transaction.getFee() +
                         "</code>\n<b>Fee left:</b> <code>" + transaction.getFeeLeft() +
                         "</code>\n<b>Status:</b> <code>" + transaction.getStatus() +
@@ -104,8 +106,41 @@ public class TransformationService {
         return "/" + height;
     }
 
+    private String getLinkedAddress(String address) {
+        return "/" + address;
+    }
+
     private String getLinkedHash(String hash) {
-        return "/" + hash;//todo: fix when hash starts with "/"
+        if (hash.charAt(0) != '/')
+            hash = "/" + hash;
+        int slash = hash.indexOf("/", hash.indexOf("/") + 1);
+        int plus = hash.indexOf("+");
+        int equals = hash.indexOf("=");
+
+        if (slash > 0 && (slash < plus || plus < 0) && (slash < equals || plus < 0))
+            hash = replaceOccurance(hash, "/", " <code>/", 2);
+        else if (plus >= 0 && (plus < equals || equals < 0))
+            hash = hash.replaceFirst(Pattern.quote("+"), " <code>+");
+        else if (equals > 0)
+            hash = hash.replaceFirst(Pattern.quote("="), " <code>=");
+        if (hash.contains("<code>"))
+            hash += "</code>";
+        return hash;
+    }
+
+    private String replaceOccurance(String text, String replaceFrom, String replaceTo, int occuranceIndex)
+    {
+        StringBuffer sb = new StringBuffer();
+        Pattern p = Pattern.compile(replaceFrom);
+        Matcher m = p.matcher(text);
+        int count = 0;
+        while (m.find()) {
+            if (count++ == occuranceIndex - 1) {
+                m.appendReplacement(sb, replaceTo);
+            }
+        }
+        m.appendTail(sb);
+        return sb.toString();
     }
 
     private static class SingletonHolder {
