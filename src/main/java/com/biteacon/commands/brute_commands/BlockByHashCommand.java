@@ -1,6 +1,5 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.AccountByAddrReq;
 import com.biteacon.POJOs.BlockByHashReq;
 import com.biteacon.commands.Command;
 import com.biteacon.constants.Messages;
