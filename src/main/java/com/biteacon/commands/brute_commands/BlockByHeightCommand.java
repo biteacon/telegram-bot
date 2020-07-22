@@ -32,6 +32,11 @@ public class BlockByHeightCommand implements Command {
             HttpResponse<?> response = SearchService.getInstance().getBlockByHeight(key);
             String responseBodyString = response.body().toString();
             BlockResponse block = gson.fromJson(responseBodyString, BlockResponse.class);
+            if (block == null || block.getData() == null) {
+                response = SearchService.getInstance().getBlockByHeight(key.substring(1));
+                responseBodyString = response.body().toString();
+                block = gson.fromJson(responseBodyString, BlockResponse.class);
+            }
             return TransformationService.getInstance().getFormattedBlock(block);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();

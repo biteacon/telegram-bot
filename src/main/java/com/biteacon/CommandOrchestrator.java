@@ -55,7 +55,7 @@ public class CommandOrchestrator {
 
     private List<String> getCommandNamesByRequest(String request) {
         ArrayList<String> commandNames = new ArrayList<>();
-        if (isInteger(request))
+        if (isInteger(request) || isInteger(request.substring(1)))
             commandNames.add(Commands.BLOCK_BY_HEIGHT);
         else {
             commandNames.add(Commands.ACCOUNT_BY_ADDRESS);
