@@ -74,6 +74,7 @@ public class SearchService {
                 "    account_from\n" +
                 "    account_to\n" +
                 "    fee\n" +
+                "    fee_left\n" +
                 "    status\n" +
                 "    timestamp\n" +
                 "    type\n" +
