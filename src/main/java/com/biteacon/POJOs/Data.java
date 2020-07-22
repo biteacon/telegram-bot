@@ -26,6 +26,7 @@ public class Data {
     public List<LikelibBlock> getLikelibBlocks() {
         return mLikelibBlocks;
     }
+
     public void setLikelibBlocks(List<LikelibBlock> likelibBlocks) {
         mLikelibBlocks = likelibBlocks;
     }
