@@ -4,6 +4,8 @@ package com.biteacon.POJOs;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDateTime;
+
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class LikelibTransaction {
@@ -31,7 +33,7 @@ public class LikelibTransaction {
     @SerializedName("status")
     private String mStatus;
     @SerializedName("timestamp")
-    private String mTimestamp;
+    private LocalDateTime mTimestamp;
     @SerializedName("type")
     private String mType;
 
@@ -123,11 +125,11 @@ public class LikelibTransaction {
         mStatus = status;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return mTimestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         mTimestamp = timestamp;
     }
 

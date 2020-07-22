@@ -1,8 +1,11 @@
 
 package com.biteacon.POJOs;
 
+import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
@@ -16,11 +19,11 @@ public class LikelibBlock {
     @SerializedName("height")
     private Long mHeight;
     @SerializedName("nonce")
-    private Long mNonce;
+    private BigInteger mNonce;
     @SerializedName("prev_block_hash")
     private String mPrevBlockHash;
     @SerializedName("timestamp")
-    private String mTimestamp;
+    private LocalDateTime mTimestamp;
     @SerializedName("transactions")
     private List<Transaction> mTransactions;
 
@@ -48,11 +51,11 @@ public class LikelibBlock {
         mHeight = height;
     }
 
-    public Long getNonce() {
+    public BigInteger getNonce() {
         return mNonce;
     }
 
-    public void setNonce(Long nonce) {
+    public void setNonce(BigInteger nonce) {
         mNonce = nonce;
     }
 
@@ -64,11 +67,11 @@ public class LikelibBlock {
         mPrevBlockHash = prevBlockHash;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return mTimestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         mTimestamp = timestamp;
     }
 

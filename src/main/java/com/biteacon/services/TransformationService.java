@@ -48,20 +48,34 @@ public class TransformationService {
         return transformation.toString();
     }
 
-    private String getLinkedBlock(Long height) {
-        return "/" + height;
-    }
-
-    private String getLinkedHash(String hash) {
-        return "/" + hash;//todo: fix when hash starts with "/"
-    }
-
     public String getFormattedBlock(BlockResponse block) {
         String formattedBlock = null;
         if (block != null && block.getData() != null && block.getData().getLikelibBlocks() != null
                 && block.getData().getLikelibBlocks().size() > 0)
-            formattedBlock = block.getData().getLikelibBlocks().toString();// todo: change it
+            formattedBlock = transformBlock(block.getData().getLikelibBlocks().get(0));// todo: change it
         return formattedBlock;
+    }
+
+    private String transformBlock(LikelibBlock block) {
+        StringBuilder transformation = new StringBuilder(
+                "<b>Block</b>\n<b>Height:</b> " + getLinkedBlock(block.getHeight()) +
+                "\n<b>Hash:</b> " + getLinkedHash(block.getHash()) +
+                "\n<b>Coinbase:</b> " + getLinkedHash(block.getCoinbase()) +
+                "\n<b>Previous block hash:</b> " + getLinkedHash(block.getPrevBlockHash()) +
+                "\n<b>Nonce:</b> <code>" + block.getNonce() +
+                "</code>\n<b>Timestamp:</b> <code>" + block.getTimestamp() + "</code>");
+        if (block.getTransactions() != null && block.getTransactions().size() > 0) {
+            transformation.
+                    append("\n\n<b>Transactions(<code>").
+                    append(block.getTransactions().size()).
+                    append("</code>):</b>\n\n");
+            for (Transaction transaction : block.getTransactions()) {
+                transformation.
+                        append(getLinkedHash(transaction.getHash())).
+                        append("\n\n");
+            }
+        }
+        return transformation.toString();
     }
 
     public String getFormattedTransaction(TransactionResponse transaction) {
@@ -70,6 +84,14 @@ public class TransformationService {
                 && transaction.getData().getLikelibTransactions().size() > 0)
             formattedTransaction = transaction.getData().getLikelibTransactions().toString();// todo: change it
         return formattedTransaction;
+    }
+
+    private String getLinkedBlock(Long height) {
+        return "/" + height;
+    }
+
+    private String getLinkedHash(String hash) {
+        return "/" + hash;//todo: fix when hash starts with "/"
     }
 
     private static class SingletonHolder {

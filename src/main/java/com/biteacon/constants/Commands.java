@@ -22,4 +22,6 @@ public class Commands {
     public static final String BLOCK_BY_HASH = "blockByHash";
     public static final String BLOCK_BY_HEIGHT = "blockByHeight";
     public static final String TRANSACTION_BY_HASH = "transactionByHash";
+
+    private Commands() {}
 }

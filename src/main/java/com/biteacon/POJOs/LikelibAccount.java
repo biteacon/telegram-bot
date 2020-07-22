@@ -1,6 +1,7 @@
 
 package com.biteacon.POJOs;
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
@@ -16,7 +17,7 @@ public class LikelibAccount {
     @SerializedName("blocks")
     private List<Block> mBlocks;
     @SerializedName("nonce")
-    private Long mNonce;
+    private BigInteger mNonce;
     @SerializedName("transactions")
     private List<Transaction> mTransactions;
     @SerializedName("type")
@@ -46,11 +47,11 @@ public class LikelibAccount {
         mBlocks = blocks;
     }
 
-    public Long getNonce() {
+    public BigInteger getNonce() {
         return mNonce;
     }
 
-    public void setNonce(Long nonce) {
+    public void setNonce(BigInteger nonce) {
         mNonce = nonce;
     }
 

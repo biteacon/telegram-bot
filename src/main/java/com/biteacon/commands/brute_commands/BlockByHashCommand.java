@@ -5,13 +5,25 @@ import com.biteacon.commands.Command;
 import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
 import com.biteacon.services.TransformationService;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 
+import java.lang.reflect.Type;
 import java.net.http.HttpResponse;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BlockByHashCommand implements Command {
-    Gson gson = new Gson();
+    Gson gson;
+
+    public BlockByHashCommand() {
+        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+            @Override
+            public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
+                return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ISO_DATE_TIME);
+            }
+        }).create();
+    }
 
     @Override
     public String execute(String key) {
