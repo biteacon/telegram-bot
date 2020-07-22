@@ -1,12 +1,14 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.TransactionByHashReq;
+import com.biteacon.POJOs.TransactionResponse;
 import com.biteacon.commands.Command;
-import com.biteacon.constants.Messages;
+import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
+import com.biteacon.services.TransformationService;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
-import java.io.IOException;
+import java.net.http.HttpResponse;
 
 public class TransactionByHashCommand implements Command {
     Gson gson = new Gson();
@@ -15,12 +17,13 @@ public class TransactionByHashCommand implements Command {
     public String execute(String key) {
         //        todo: validate + transformation
         try {
-            String transaction = SearchService.getInstance().getTransactionByHash(key);
-            TransactionByHashReq tx = gson.fromJson(transaction, TransactionByHashReq.class);
-            return transaction;
-        } catch (IOException | InterruptedException e) {
+            HttpResponse<?> response = SearchService.getInstance().getTransactionByHash(key);
+            String responseBodyString = response.body().toString();
+            TransactionResponse transaction = gson.fromJson(responseBodyString, TransactionResponse.class);
+            return TransformationService.getInstance().getFormattedTransaction(transaction);
+        } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();
         }
-        return Messages.NOT_FOUND;
+        return null;
     }
 }

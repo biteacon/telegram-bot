@@ -1,6 +1,7 @@
 package com.biteacon.services;
 
 import com.biteacon.constants.BotConfig;
+import com.biteacon.exceptions.SearchException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,7 +23,7 @@ public class SearchService {
         duration = Duration.ofMinutes(1);
     }
 
-    public String getBlockByHash(String hash) throws IOException, InterruptedException {
+    public HttpResponse<?> getBlockByHash(String hash) throws SearchException {
         return executeQuery(getRequestBody(getBlockByHashRequest(hash)));
     }
 
@@ -42,7 +43,7 @@ public class SearchService {
                 "}\n";
     }
 
-    public String getBlockByHeight(String height) throws IOException, InterruptedException {
+    public HttpResponse<?> getBlockByHeight(String height) throws SearchException {
         return executeQuery(getRequestBody(getBlockByHeightRequest(height)));
     }
 
@@ -62,7 +63,7 @@ public class SearchService {
                 "}\n";
     }
 
-    public String getTransactionByHash(String hash) throws IOException, InterruptedException {
+    public HttpResponse<?> getTransactionByHash(String hash) throws SearchException {
         return executeQuery(getRequestBody(getTransactionByHashRequest(hash)));
     }
 
@@ -86,7 +87,7 @@ public class SearchService {
                 "}\n";
     }
 
-    public String getAccountByAddress(String address) throws IOException, InterruptedException {
+    public HttpResponse<?> getAccountByAddress(String address) throws SearchException {
         return executeQuery(getRequestBody(getAccountByAddressRequest(address)));
     }
 
@@ -111,15 +112,21 @@ public class SearchService {
         return "{ \"query\": \"" + request + "\" }";
     }
 
-    private String executeQuery(String requestBody) throws IOException, InterruptedException {
+    private HttpResponse<?> executeQuery(String requestBody) throws SearchException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BotConfig.GRAPHQL_URL))
                 .timeout(duration)
                 .headers(BotConfig.GRAPHQL_HEADERS)
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
-        HttpResponse<?> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
-        return response.body().toString();
+        HttpResponse<?> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            throw new SearchException(e);
+        }
+        return response;
     }
 
 

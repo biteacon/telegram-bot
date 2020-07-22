@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class TransactionByHashResponse {
+public class BlockResponse {
 
     @SerializedName("data")
     private Data mData;

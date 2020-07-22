@@ -1,12 +1,14 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.BlockByHeightReq;
+import com.biteacon.POJOs.BlockResponse;
 import com.biteacon.commands.Command;
-import com.biteacon.constants.Messages;
+import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
+import com.biteacon.services.TransformationService;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
-import java.io.IOException;
+import java.net.http.HttpResponse;
 
 public class BlockByHeightCommand implements Command {
     Gson gson = new Gson();
@@ -15,12 +17,13 @@ public class BlockByHeightCommand implements Command {
     public String execute(String key) {
         //        todo: validate + transformation
         try {
-            String block = SearchService.getInstance().getBlockByHeight(key);
-            BlockByHeightReq bl = gson.fromJson(block, BlockByHeightReq.class);
-            return block;
-        } catch (IOException | InterruptedException e) {
+            HttpResponse<?> response = SearchService.getInstance().getBlockByHeight(key);
+            String responseBodyString = response.body().toString();
+            BlockResponse block = gson.fromJson(responseBodyString, BlockResponse.class);
+            return TransformationService.getInstance().getFormattedBlock(block);
+        } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();
         }
-        return Messages.NOT_FOUND;
+        return null;
     }
 }
