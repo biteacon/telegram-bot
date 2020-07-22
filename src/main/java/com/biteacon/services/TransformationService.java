@@ -78,8 +78,26 @@ public class TransformationService {
         String formattedTransaction = null;
         if (transaction != null && transaction.getData() != null && transaction.getData().getLikelibTransactions() != null
                 && transaction.getData().getLikelibTransactions().size() > 0)
-            formattedTransaction = transaction.getData().getLikelibTransactions().toString();// todo: change it
+            formattedTransaction = transformTransaction(transaction.getData().getLikelibTransactions().get(0));// todo: change it
         return formattedTransaction;
+    }
+
+    private String transformTransaction(LikelibTransaction transaction) {
+        StringBuilder transformation = new StringBuilder(
+                "<b>Transaction</b>\n<b>Hash:</b> " + getLinkedHash(transaction.getHash()) +
+                        "\n<b>Block height:</b> " + getLinkedBlock(transaction.getBlockHeight()) +
+                        "\n<b>Coinbase:</b> <code>" + transaction.getAmount() +
+                        "</code>\n<b>Account from:</b> " + getLinkedHash(transaction.getAccountFrom()) +
+                        "\n<b>Account to:</b> " + getLinkedHash(transaction.getAccountTo()) +
+                        "\n<b>Fee:</b> <code>" + transaction.getFee() +
+                        "</code>\n<b>Fee left:</b> <code>" + transaction.getFeeLeft() +
+                        "</code>\n<b>Status:</b> <code>" + transaction.getStatus() +
+                        "</code>\n<b>Timestamp:</b> <code>" + transaction.getTimestamp() +
+                        "</code>\n<b>Type:</b> <code>" + transaction.getType() +
+                        "</code>\n<b>Message:</b> <code>" + transaction.getMessage() +
+                        "</code>\n<b>Sign:</b> <code>" + transaction.getSign() +
+                        "</code>\n<b>Data:</b> <code>" + transaction.getData() + "</code>");
+        return transformation.toString();
     }
 
     private String getLinkedBlock(Long height) {
