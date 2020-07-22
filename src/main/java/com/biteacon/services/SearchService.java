@@ -93,7 +93,8 @@ public class SearchService {
 
     private String getAccountByAddressRequest(String address) {
         return "query MyQuery {\n" +
-                "  likelib_accounts(where: {address: {_eq: \\\"" + address + "\\\"}}) {\n" +
+                "  likelib_accounts(where: {_or: [ {address: {_eq: \\\"" + address +
+                "\\\"}}, {address: {_eq: \\\"" + address.substring(1) + "\\\"}}]}) {\n" +
                 "    address\n" +
                 "    balance\n" +
                 "    nonce\n" +
