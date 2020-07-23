@@ -1,14 +1,14 @@
 package com.biteacon;
 
 import com.biteacon.constants.BotConfig;
+import com.biteacon.constants.Messages;
+import com.biteacon.entities.CommandResponse;
 import com.biteacon.services.CommandOrchestrator;
-import net.glxn.qrgen.javase.QRCode;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.io.File;
 
 public class ExplorerBot extends TelegramLongPollingBot {
     @Override
@@ -18,16 +18,33 @@ public class ExplorerBot extends TelegramLongPollingBot {
             // Set variables
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-            String responseMessageText = CommandOrchestrator.getInstance().matchCommands(messageText);
+            CommandResponse response = CommandOrchestrator.getInstance().matchCommands(messageText);
 
             // get QR file from text using defaults
-            File file = QRCode.from(messageText).file();
-            SendPhoto message = new SendPhoto().setChatId(chatId).setPhoto(file).setCaption(responseMessageText).setParseMode("html");
-//            SendMessage message = new SendMessage() // Create a message object object
-//                    .setChatId(chatId)
-//                    .setText(responseMessageText);
+//            File file = QRCode.from(messageText).file();
             try {
-                execute(message); // Sending our message object to user
+                if (response == null || response.getResponseMessage() == null) {
+                    SendMessage message = new SendMessage().
+                            setChatId(chatId).
+                            setText(Messages.ERROR).
+                            setParseMode("html");
+                    execute(message);
+                } else {
+                    if (response.getFile() != null) {
+                        SendPhoto message = new SendPhoto().
+                                setChatId(chatId).
+                                setPhoto(response.getFile()).
+                                setCaption(response.getResponseMessage()).
+                                setParseMode("html");
+                        execute(message);
+                    } else {
+                        SendMessage message = new SendMessage().
+                                setChatId(chatId).
+                                setText(response.getResponseMessage()).
+                                setParseMode("html");
+                        execute(message);
+                    }
+                }
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }

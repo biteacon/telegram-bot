@@ -1,8 +1,10 @@
 package com.biteacon.commands;
 
+import com.biteacon.entities.CommandResponse;
+
 public class TransactionsCommand implements Command {
     @Override
-    public String execute(String key) {
-        return "Hello from transactions command!";
+    public CommandResponse execute(String key) {
+        return new CommandResponse("Hello from transactions command!");
     }
 }

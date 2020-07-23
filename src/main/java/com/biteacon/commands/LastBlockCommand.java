@@ -1,8 +1,10 @@
 package com.biteacon.commands;
 
+import com.biteacon.entities.CommandResponse;
+
 public class LastBlockCommand implements Command {
     @Override
-    public String execute(String key) {
-        return "Hello from last block command!";
+    public CommandResponse execute(String key) {
+        return new CommandResponse("Hello from last block command!");
     }
 }

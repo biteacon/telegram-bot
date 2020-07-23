@@ -1,8 +1,10 @@
 package com.biteacon.commands;
 
+import com.biteacon.entities.CommandResponse;
+
 public class FavoritesCommand implements Command {
     @Override
-    public String execute(String key) {
-        return "Hello from favorites command!";
+    public CommandResponse execute(String key) {
+        return new CommandResponse("Hello from favorites command!");
     }
 }

@@ -9,6 +9,7 @@ import com.biteacon.commands.brute_commands.BlockByHeightCommand;
 import com.biteacon.commands.brute_commands.TransactionByHashCommand;
 import com.biteacon.constants.Commands;
 import com.biteacon.constants.Messages;
+import com.biteacon.entities.CommandResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,16 +39,16 @@ public class CommandOrchestrator {
         }};
     }
 
-    public String matchCommands(String request) {
+    public CommandResponse matchCommands(String request) {
         Command command = commands.get(request.toLowerCase());
         if (command == null) {
             for (String commandName : getCommandNamesByRequest(request)) {
-                String result = bruteCommands.get(commandName).execute(request);
+                CommandResponse result = bruteCommands.get(commandName).execute(request);
                 if (result != null) //todo:change it (error code or something else)
                     return result;
             }
 //            todo: error
-            return Messages.NOT_FOUND;
+            return new CommandResponse(Messages.NOT_FOUND);
         }
         return command.execute(request);
     }
