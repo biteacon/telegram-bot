@@ -29,7 +29,10 @@ public class SearchService {
 
     private String getBlockByHashRequest(String hash) {
         return "query MyQuery {\n" +
-                "  likelib_blocks(where: {hash: {_eq: \\\"" + hash + "\\\"}}) {\n" +
+                "  likelib_blocks(where: {_or: [{hash: {_eq: \\\"" + hash + "\\\"}}," +
+                "{hash: {_eq: \\\"" + hash.substring(1) + "\\\"}}," +
+                "{hash: {_ilike: \\\"" + hash.substring(1) + "%\\\"}}," +
+                "{hash: {_ilike: \\\"" + hash + "%\\\"}}]}) {\n" +
                 "    hash\n" +
                 "    height\n" +
                 "    prev_block_hash\n" +
