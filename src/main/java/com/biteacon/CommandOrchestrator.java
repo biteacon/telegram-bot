@@ -75,6 +75,6 @@ public class CommandOrchestrator {
     }
 
     private static class SingletonHolder {
-        private static CommandOrchestrator INSTANCE = new CommandOrchestrator();
+        private static final CommandOrchestrator INSTANCE = new CommandOrchestrator();
     }
 }

@@ -157,6 +157,6 @@ public class SearchService {
 
 
     private static class SingletonHolder {
-        private static SearchService INSTANCE = new SearchService();
+        private static final SearchService INSTANCE = new SearchService();
     }
 }

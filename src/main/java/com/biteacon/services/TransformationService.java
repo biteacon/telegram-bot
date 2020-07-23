@@ -196,6 +196,6 @@ public class TransformationService {
     }
 
     private static class SingletonHolder {
-        private static TransformationService INSTANCE = new TransformationService();
+        private static final TransformationService INSTANCE = new TransformationService();
     }
 }
