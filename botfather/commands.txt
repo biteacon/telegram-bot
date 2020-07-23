@@ -1,2 +1,3 @@
 help - Help
 start - Start
+lastblock - Get last block

@@ -47,6 +47,26 @@ public class SearchService {
                 "}\n";
     }
 
+    public HttpResponse<?> getLastBlock() throws SearchException {
+        return executeQuery(getRequestBody(getLastBlockRequest()));
+    }
+
+    private String getLastBlockRequest() {
+        return "query MyQuery {\n" +
+                "  likelib_blocks(order_by: {height: desc}, limit: 1) {\n" +
+                "    hash\n" +
+                "    height\n" +
+                "    prev_block_hash\n" +
+                "    coinbase\n" +
+                "    nonce\n" +
+                "    timestamp\n" +
+                "    transactions {\n" +
+                "      hash\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n";
+    }
+
     public HttpResponse<?> getBlockByHeight(String height) throws SearchException {
         return executeQuery(getRequestBody(getBlockByHeightRequest(height)));
     }

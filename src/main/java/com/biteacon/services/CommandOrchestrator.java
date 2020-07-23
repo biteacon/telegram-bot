@@ -2,6 +2,7 @@ package com.biteacon.services;
 
 import com.biteacon.commands.Command;
 import com.biteacon.commands.HelpCommand;
+import com.biteacon.commands.LastBlockCommand;
 import com.biteacon.commands.StartCommand;
 import com.biteacon.commands.brute_commands.AccountByAddressCommand;
 import com.biteacon.commands.brute_commands.BlockByHashCommand;
@@ -17,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandOrchestrator {
-    private Map<String, Command> commands;
-    private Map<String, Command> bruteCommands;
+    private final Map<String, Command> commands;
+    private final Map<String, Command> bruteCommands;
 
     public static CommandOrchestrator getInstance() {
         return SingletonHolder.INSTANCE;
@@ -27,11 +28,14 @@ public class CommandOrchestrator {
     private CommandOrchestrator() {
         HelpCommand helpCommand = new HelpCommand();
         StartCommand startCommand = new StartCommand();
+        LastBlockCommand lastBlockCommand = new LastBlockCommand();
         commands = new HashMap<>(){{
             put(Commands.HELP, helpCommand);
             put(Commands.HELP2, helpCommand);
             put(Commands.START, startCommand);
             put(Commands.START2, startCommand);
+            put(Commands.LAST_BLOCK, lastBlockCommand);
+            put(Commands.LAST_BLOCK2, lastBlockCommand);
         }};
         bruteCommands = new HashMap<>(){{
             put(Commands.ACCOUNT_BY_ADDRESS, new AccountByAddressCommand());
