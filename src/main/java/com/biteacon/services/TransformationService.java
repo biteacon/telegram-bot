@@ -140,7 +140,7 @@ public class TransformationService {
         StringBuilder transformation = new StringBuilder(
                 "<b>Transaction</b>\n<b>Hash:</b> " + getLinkedHash(transaction.getHash()) +
                         "\n<b>Block height:</b> " + getLinkedBlock(transaction.getBlockHeight()) +
-                        "\n<b>Coinbase:</b> <code>" + transaction.getAmount() +
+                        "\n<b>Amount:</b> <code>" + transaction.getAmount() +
                         "</code>\n<b>Account from:</b> " + getLinkedAddress(transaction.getAccountFrom()) +
                         "\n<b>Account to:</b> " + getLinkedAddress(transaction.getAccountTo()) +
                         "\n<b>Fee:</b> <code>" + transaction.getFee() +
