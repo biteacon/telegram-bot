@@ -1,6 +1,6 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.BlockResponse;
+import com.biteacon.POJOs.GraphqlResponse;
 import com.biteacon.commands.Command;
 import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
@@ -31,11 +31,11 @@ public class BlockByHeightCommand implements Command {
         try {
             HttpResponse<?> response = SearchService.getInstance().getBlockByHeight(key);
             String responseBodyString = response.body().toString();
-            BlockResponse block = gson.fromJson(responseBodyString, BlockResponse.class);
+            GraphqlResponse block = gson.fromJson(responseBodyString, GraphqlResponse.class);
             if (block == null || block.getData() == null) {
                 response = SearchService.getInstance().getBlockByHeight(key.substring(1));
                 responseBodyString = response.body().toString();
-                block = gson.fromJson(responseBodyString, BlockResponse.class);
+                block = gson.fromJson(responseBodyString, GraphqlResponse.class);
             }
             return TransformationService.getInstance().getFormattedBlock(block);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {

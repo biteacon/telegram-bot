@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class AccountByAddrResponse {
+public class GraphqlResponse {
 
     @SerializedName("data")
     private Data mData;

@@ -1,6 +1,6 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.TransactionResponse;
+import com.biteacon.POJOs.GraphqlResponse;
 import com.biteacon.commands.Command;
 import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
@@ -31,7 +31,7 @@ public class TransactionByHashCommand implements Command {
         try {
             HttpResponse<?> response = SearchService.getInstance().getTransactionByHash(key);
             String responseBodyString = response.body().toString();
-            TransactionResponse transaction = gson.fromJson(responseBodyString, TransactionResponse.class);
+            GraphqlResponse transaction = gson.fromJson(responseBodyString, GraphqlResponse.class);
             return TransformationService.getInstance().getFormattedTransaction(transaction);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();

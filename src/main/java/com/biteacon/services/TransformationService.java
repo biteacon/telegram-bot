@@ -14,7 +14,7 @@ public class TransformationService {
 
     private TransformationService() {}
 
-    public String getFormattedAccount(AccountByAddrResponse account) {
+    public String getFormattedAccount(GraphqlResponse account) {
         String formattedAccount = null;
         if (account != null && account.getData() != null && account.getData().getLikelibAccounts() != null
                 && account.getData().getLikelibAccounts().size() > 0)
@@ -54,7 +54,7 @@ public class TransformationService {
                 && account.getTransactionsByAccountTo().size() <= account.getTransactionsByAccountToAggregate().getAggregate().getCount();
     }
 
-    public String getFormattedBlock(BlockResponse block) {
+    public String getFormattedBlock(GraphqlResponse block) {
         String formattedBlock = null;
         if (block != null && block.getData() != null && block.getData().getLikelibBlocks() != null
                 && block.getData().getLikelibBlocks().size() > 0)
@@ -128,7 +128,7 @@ public class TransformationService {
         }
     }
 
-    public String getFormattedTransaction(TransactionResponse transaction) {
+    public String getFormattedTransaction(GraphqlResponse transaction) {
         String formattedTransaction = null;
         if (transaction != null && transaction.getData() != null && transaction.getData().getLikelibTransactions() != null
                 && transaction.getData().getLikelibTransactions().size() > 0)

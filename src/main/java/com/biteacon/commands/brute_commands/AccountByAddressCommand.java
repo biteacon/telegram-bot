@@ -1,6 +1,6 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.AccountByAddrResponse;
+import com.biteacon.POJOs.GraphqlResponse;
 import com.biteacon.commands.Command;
 import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
@@ -19,7 +19,7 @@ public class AccountByAddressCommand implements Command {
         try {
             HttpResponse<?> response = SearchService.getInstance().getAccountByAddress(key);
             String responseBodyString = response.body().toString();
-            AccountByAddrResponse account = gson.fromJson(responseBodyString, AccountByAddrResponse.class);
+            GraphqlResponse account = gson.fromJson(responseBodyString, GraphqlResponse.class);
             return TransformationService.getInstance().getFormattedAccount(account);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();

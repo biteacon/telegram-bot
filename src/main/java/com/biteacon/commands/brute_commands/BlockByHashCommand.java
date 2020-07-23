@@ -1,6 +1,6 @@
 package com.biteacon.commands.brute_commands;
 
-import com.biteacon.POJOs.BlockResponse;
+import com.biteacon.POJOs.GraphqlResponse;
 import com.biteacon.commands.Command;
 import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
@@ -31,7 +31,7 @@ public class BlockByHashCommand implements Command {
         try {
             HttpResponse<?> response = SearchService.getInstance().getBlockByHash(key);
             String responseBodyString = response.body().toString();
-            BlockResponse block = gson.fromJson(responseBodyString, BlockResponse.class);
+            GraphqlResponse block = gson.fromJson(responseBodyString, GraphqlResponse.class);
             return TransformationService.getInstance().getFormattedBlock(block);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();
