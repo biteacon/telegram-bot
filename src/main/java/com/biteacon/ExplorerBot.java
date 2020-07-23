@@ -1,6 +1,7 @@
 package com.biteacon;
 
 import com.biteacon.constants.BotConfig;
+import com.biteacon.services.CommandOrchestrator;
 import net.glxn.qrgen.javase.QRCode;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;

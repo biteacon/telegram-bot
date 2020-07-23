@@ -1,4 +1,4 @@
-package com.biteacon;
+package com.biteacon.services;
 
 import com.biteacon.commands.Command;
 import com.biteacon.commands.HelpCommand;
