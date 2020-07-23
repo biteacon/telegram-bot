@@ -22,6 +22,8 @@ public class LikelibAccount {
     private List<Transaction> mTransactions;
     @SerializedName("type")
     private String mType;
+    @SerializedName("transactionsByAccountTo")
+    private List<TransactionsByAccountTo> mTransactionsByAccountTo;
 
     public String getAddress() {
         return mAddress;
@@ -71,4 +73,11 @@ public class LikelibAccount {
         mType = type;
     }
 
+    public List<TransactionsByAccountTo> getTransactionsByAccountTo() {
+        return mTransactionsByAccountTo;
+    }
+
+    public void setTransactionsByAccountTo(List<TransactionsByAccountTo> transactions) {
+        mTransactionsByAccountTo = transactions;
+    }
 }

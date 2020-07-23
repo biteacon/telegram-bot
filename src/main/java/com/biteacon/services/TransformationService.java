@@ -28,6 +28,7 @@ public class TransformationService {
                 "\n<b>Type:</b> <code>" + account.getType() + "</code>" +
                 "\n<b>Nonce:</b> <code>" + account.getNonce() + "</code>");
         transformSubtransactions(transformation, account.getTransactions());
+        transformSubtransactions2(transformation, account.getTransactionsByAccountTo());
         if (account.getBlocks() != null && account.getBlocks().size() > 0) {
             transformation.
                     append("\n\n<b>Blocks(<code>").
@@ -69,6 +70,20 @@ public class TransformationService {
                     append(transactions.size()).
                     append("</code>):</b>\n\n");
             for (Transaction transaction : transactions) {
+                transformation.
+                        append(getLinkedHash(transaction.getHash())).
+                        append("\n\n");
+            }
+        }
+    }
+
+    private void transformSubtransactions2(StringBuilder transformation, List<TransactionsByAccountTo> transactions) {
+        if (transactions != null && transactions.size() > 0) {
+            transformation.
+                    append("\n\n<b>Transactions(<code>").
+                    append(transactions.size()).
+                    append("</code>):</b>\n\n");
+            for (TransactionsByAccountTo transaction : transactions) {
                 transformation.
                         append(getLinkedHash(transaction.getHash())).
                         append("\n\n");

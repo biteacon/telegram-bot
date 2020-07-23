@@ -73,7 +73,6 @@ public class SearchService {
                 "{hash: {_eq: \\\"" + hash.substring(1) + "\\\"}}," +
                 "{hash: {_ilike: \\\"" + hash.substring(1) + "%\\\"}}," +
                 "{hash: {_ilike: \\\"" + hash + "%\\\"}}]}) {\n" +
-//                (where: {_or: [{height: {_eq: "1"}}, {height: {_eq: "5794"}},{hash: {_ilike: "1BZAGsLN8I7/A+hZTGIY8OX+mfEBYTD3aTk%"}}]})
                 "    hash\n" +
                 "    block_height\n" +
                 "    amount\n" +
@@ -106,6 +105,9 @@ public class SearchService {
                 "    transactions {\n" +
                 "      hash\n" +
                 "    }\n" +
+                "    transactionsByAccountTo {\n" +
+                "      hash\n" +
+                "    }" +
                 "    blocks {\n" +
                 "      height\n" +
                 "    }\n" +
