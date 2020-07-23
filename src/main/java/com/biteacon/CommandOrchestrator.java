@@ -41,7 +41,6 @@ public class CommandOrchestrator {
     public String matchCommands(String request) {
         Command command = commands.get(request.toLowerCase());
         if (command == null) {
-//            todo: need to add logic for "/" with brute commands
             for (String commandName : getCommandNamesByRequest(request)) {
                 String result = bruteCommands.get(commandName).execute(request);
                 if (result != null) //todo:change it (error code or something else)

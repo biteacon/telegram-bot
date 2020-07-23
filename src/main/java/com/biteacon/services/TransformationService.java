@@ -1,6 +1,7 @@
 package com.biteacon.services;
 
 import com.biteacon.POJOs.*;
+import com.biteacon.constants.ApplicationConstants;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,18 +23,23 @@ public class TransformationService {
     }
 
     private String transformAccount(LikelibAccount account) {
+        if (!isAccountCorrect(account))
+            return null;//todo: error code
         StringBuilder transformation = new StringBuilder(
                 "<b>Account:</b> " + getLinkedAddress(account.getAddress()) +
                 "\n<b>Balance:</b> <code>" + account.getBalance() + "</code>" +
                 "\n<b>Type:</b> <code>" + account.getType() + "</code>" +
                 "\n<b>Nonce:</b> <code>" + account.getNonce() + "</code>");
-        transformSubtransactions(transformation, account.getTransactions());
-        transformSubtransactions2(transformation, account.getTransactionsByAccountTo());
+        transformAccountSubtransactions(transformation, account.getTransactions(), account.getTransactionsByAccountTo(),
+                account.getTransactionsAggregate().getAggregate().getCount(), account.getTransactionsByAccountToAggregate().getAggregate().getCount());
         if (account.getBlocks() != null && account.getBlocks().size() > 0) {
-            transformation.
-                    append("\n\n<b>Blocks(<code>").
-                    append(account.getBlocks().size()).
-                    append("</code>):</b>\n");
+            transformation.append("\n\n<b>Blocks(<code>");
+            if (account.getBlocksAggregate().getAggregate().getCount() > ApplicationConstants.ACCOUNT_BLOCKS_PER_PAGE)
+                transformation.append(ApplicationConstants.ACCOUNT_BLOCKS_PER_PAGE).append("</code> of <code>").
+                        append(account.getBlocksAggregate().getAggregate().getCount());
+            else
+                transformation.append(account.getBlocksAggregate().getAggregate().getCount());
+            transformation.append("</code>):</b>\n");
             for (Block block : account.getBlocks()) {
                 transformation.
                         append(getLinkedBlock(block.getHeight())).
@@ -41,6 +47,11 @@ public class TransformationService {
             }
         }
         return transformation.toString();
+    }
+
+    private boolean isAccountCorrect(LikelibAccount account) {
+        return account.getTransactions().size() <= account.getTransactionsAggregate().getAggregate().getCount()
+                && account.getTransactionsByAccountTo().size() <= account.getTransactionsByAccountToAggregate().getAggregate().getCount();
     }
 
     public String getFormattedBlock(BlockResponse block) {
@@ -63,6 +74,46 @@ public class TransformationService {
         return transformation.toString();
     }
 
+    private void transformAccountSubtransactions(StringBuilder transformation, List<Transaction> txOut, List<TransactionsByAccountTo> txIn,
+                                                 Long txOutTotalCount, Long txInTotalCount) {
+        if (txOutTotalCount > 0 || txInTotalCount > 0) {
+            long txsCount = txOutTotalCount + txInTotalCount;
+            transformation.
+                    append("\n\n<b>Transactions(<code>").
+                    append(txsCount).
+                    append("</code>").
+                    append("):\n");
+            if (txOutTotalCount > 0) {
+                transformation.append("Txs out(<code>");
+                if (txOutTotalCount > ApplicationConstants.ACCOUNT_TXS_OUT_PER_PAGE)
+                    transformation.append(ApplicationConstants.ACCOUNT_TXS_OUT_PER_PAGE).append("</code> of <code>").
+                            append(txOutTotalCount);
+                else
+                    transformation.append(txOutTotalCount);
+                transformation.append("</code>):</b>\n");
+                for (int i = 0; i < ApplicationConstants.ACCOUNT_TXS_OUT_PER_PAGE && i < txOutTotalCount; i++) {
+                    transformation.
+                        append(getLinkedHash(txOut.get(i).getHash())).
+                        append("\n\n");
+                }
+            }
+            if (txInTotalCount > 0) {
+                transformation.append("Txs in(<code>");
+                if (txInTotalCount > ApplicationConstants.ACCOUNT_TXS_IN_PER_PAGE)
+                    transformation.append(ApplicationConstants.ACCOUNT_TXS_IN_PER_PAGE).append("</code> of <code>").
+                            append(txInTotalCount);
+                else
+                    transformation.append(txInTotalCount);
+                transformation.append("</code>):</b>\n");
+                for (int i = 0; i < ApplicationConstants.ACCOUNT_TXS_IN_PER_PAGE && i < txInTotalCount; i++) {
+                    transformation.
+                            append(getLinkedHash(txIn.get(i).getHash())).
+                            append("\n\n");
+                }
+            }
+        }
+    }
+
     private void transformSubtransactions(StringBuilder transformation, List<Transaction> transactions) {
         if (transactions != null && transactions.size() > 0) {
             transformation.
@@ -70,20 +121,6 @@ public class TransformationService {
                     append(transactions.size()).
                     append("</code>):</b>\n\n");
             for (Transaction transaction : transactions) {
-                transformation.
-                        append(getLinkedHash(transaction.getHash())).
-                        append("\n\n");
-            }
-        }
-    }
-
-    private void transformSubtransactions2(StringBuilder transformation, List<TransactionsByAccountTo> transactions) {
-        if (transactions != null && transactions.size() > 0) {
-            transformation.
-                    append("\n\n<b>Transactions(<code>").
-                    append(transactions.size()).
-                    append("</code>):</b>\n\n");
-            for (TransactionsByAccountTo transaction : transactions) {
                 transformation.
                         append(getLinkedHash(transaction.getHash())).
                         append("\n\n");

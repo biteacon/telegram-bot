@@ -16,14 +16,20 @@ public class LikelibAccount {
     private Long mBalance;
     @SerializedName("blocks")
     private List<Block> mBlocks;
+    @SerializedName("blocks_aggregate")
+    private BlocksAggregate mBlocksAggregate;
     @SerializedName("nonce")
     private BigInteger mNonce;
     @SerializedName("transactions")
     private List<Transaction> mTransactions;
-    @SerializedName("type")
-    private String mType;
+    @SerializedName("transactions_aggregate")
+    private TransactionsAggregate mTransactionsAggregate;
     @SerializedName("transactionsByAccountTo")
     private List<TransactionsByAccountTo> mTransactionsByAccountTo;
+    @SerializedName("transactionsByAccountTo_aggregate")
+    private TransactionsByAccountToAggregate mTransactionsByAccountToAggregate;
+    @SerializedName("type")
+    private String mType;
 
     public String getAddress() {
         return mAddress;
@@ -49,6 +55,14 @@ public class LikelibAccount {
         mBlocks = blocks;
     }
 
+    public BlocksAggregate getBlocksAggregate() {
+        return mBlocksAggregate;
+    }
+
+    public void setBlocksAggregate(BlocksAggregate blocksAggregate) {
+        mBlocksAggregate = blocksAggregate;
+    }
+
     public BigInteger getNonce() {
         return mNonce;
     }
@@ -65,6 +79,30 @@ public class LikelibAccount {
         mTransactions = transactions;
     }
 
+    public TransactionsAggregate getTransactionsAggregate() {
+        return mTransactionsAggregate;
+    }
+
+    public void setTransactionsAggregate(TransactionsAggregate transactionsAggregate) {
+        mTransactionsAggregate = transactionsAggregate;
+    }
+
+    public List<TransactionsByAccountTo> getTransactionsByAccountTo() {
+        return mTransactionsByAccountTo;
+    }
+
+    public void setTransactionsByAccountTo(List<TransactionsByAccountTo> transactionsByAccountTo) {
+        mTransactionsByAccountTo = transactionsByAccountTo;
+    }
+
+    public TransactionsByAccountToAggregate getTransactionsByAccountToAggregate() {
+        return mTransactionsByAccountToAggregate;
+    }
+
+    public void setTransactionsByAccountToAggregate(TransactionsByAccountToAggregate transactionsByAccountToAggregate) {
+        mTransactionsByAccountToAggregate = transactionsByAccountToAggregate;
+    }
+
     public String getType() {
         return mType;
     }
@@ -73,11 +111,4 @@ public class LikelibAccount {
         mType = type;
     }
 
-    public List<TransactionsByAccountTo> getTransactionsByAccountTo() {
-        return mTransactionsByAccountTo;
-    }
-
-    public void setTransactionsByAccountTo(List<TransactionsByAccountTo> transactions) {
-        mTransactionsByAccountTo = transactions;
-    }
 }

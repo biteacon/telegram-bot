@@ -1,6 +1,7 @@
 package com.biteacon.services;
 
 import com.biteacon.constants.BotConfig;
+import com.biteacon.constants.ApplicationConstants;
 import com.biteacon.exceptions.SearchException;
 
 import java.io.IOException;
@@ -105,15 +106,30 @@ public class SearchService {
                 "    balance\n" +
                 "    nonce\n" +
                 "    type\n" +
-                "    transactions {\n" +
+                "    transactions(order_by: {timestamp: desc}, limit: " + ApplicationConstants.ACCOUNT_TXS_OUT_PER_PAGE + ") {\n" +
                 "      hash\n" +
                 "    }\n" +
-                "    transactionsByAccountTo {\n" +
+                "    transactionsByAccountTo(order_by: {timestamp: desc}, limit: " + ApplicationConstants.ACCOUNT_TXS_IN_PER_PAGE + ") {\n" +
                 "      hash\n" +
                 "    }" +
-                "    blocks {\n" +
+                "    blocks(order_by: {timestamp: desc}, limit: " + ApplicationConstants.ACCOUNT_BLOCKS_PER_PAGE + ") {\n" +
                 "      height\n" +
                 "    }\n" +
+                "    blocks_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "    transactionsByAccountTo_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "    transactions_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }" +
                 "  }\n" +
                 "}\n";
     }
