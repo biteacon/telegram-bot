@@ -5,6 +5,8 @@ public class Commands {
     public static final String HELP2 = "help";
     public static final String START = "/start";
     public static final String START2 = "start";
+    public static final String HELLO = "/hello";
+    public static final String HELLO2 = "hello";
     public static final String FAVORITES = "/favorites";
     public static final String FAVORITES2 = "favorites";
     public static final String LAST_BLOCK = "/lastblock";
