@@ -25,11 +25,13 @@ public class CommandOrchestrator {
     }
 
     private CommandOrchestrator() {
+        HelpCommand helpCommand = new HelpCommand();
+        StartCommand startCommand = new StartCommand();
         commands = new HashMap<>(){{
-            put(Commands.HELP, new HelpCommand());
-            put(Commands.HELP2, new HelpCommand());
-            put(Commands.START, new StartCommand());
-            put(Commands.START2, new StartCommand());
+            put(Commands.HELP, helpCommand);
+            put(Commands.HELP2, helpCommand);
+            put(Commands.START, startCommand);
+            put(Commands.START2, startCommand);
         }};
         bruteCommands = new HashMap<>(){{
             put(Commands.ACCOUNT_BY_ADDRESS, new AccountByAddressCommand());
