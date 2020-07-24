@@ -33,7 +33,8 @@ public class BlockByHashCommand implements Command {
             String responseBodyString = response.body().toString();
             GraphqlResponse block = gson.fromJson(responseBodyString, GraphqlResponse.class);
             String formattedBlock = TransformationService.getInstance().getFormattedBlock(block);
-            return new CommandResponse(formattedBlock);
+            if (formattedBlock != null)
+                return new CommandResponse(formattedBlock);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {
             e.printStackTrace();
         }
