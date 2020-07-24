@@ -33,7 +33,7 @@ public class SearchService {
                 "  likelib_blocks(where: {_or: [{hash: {_eq: \\\"" + hash + "\\\"}}," +
                 "{hash: {_eq: \\\"" + hash.substring(1) + "\\\"}}," +
                 "{hash: {_ilike: \\\"" + hash.substring(1) + "%\\\"}}," +
-                "{hash: {_ilike: \\\"" + hash + "%\\\"}}]}) {\n" +
+                "{hash: {_ilike: \\\"" + hash + "%\\\"}}]}, limit: 1) {\n" +
                 "    hash\n" +
                 "    height\n" +
                 "    prev_block_hash\n" +
@@ -201,7 +201,7 @@ public class SearchService {
                 "  likelib_transactions(where: {_or: [{hash: {_eq: \\\"" + hash + "\\\"}}," +
                 "{hash: {_eq: \\\"" + hash.substring(1) + "\\\"}}," +
                 "{hash: {_ilike: \\\"" + hash.substring(1) + "%\\\"}}," +
-                "{hash: {_ilike: \\\"" + hash + "%\\\"}}]}) {\n" +
+                "{hash: {_ilike: \\\"" + hash + "%\\\"}}]}, limit: 1) {\n" +
                 "    hash\n" +
                 "    block_height\n" +
                 "    amount\n" +
@@ -226,7 +226,7 @@ public class SearchService {
     private String getAccountByAddressRequest(String address) {
         return "query MyQuery {\n" +
                 "  likelib_accounts(where: {_or: [ {address: {_eq: \\\"" + address +
-                "\\\"}}, {address: {_eq: \\\"" + address.substring(1) + "\\\"}}]}) {\n" +
+                "\\\"}}, {address: {_eq: \\\"" + address.substring(1) + "\\\"}}]}, limit: 1) {\n" +
                 "    address\n" +
                 "    balance\n" +
                 "    nonce\n" +
