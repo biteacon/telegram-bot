@@ -3,3 +3,5 @@ start - Start
 lastblock - Last block
 hi - Hello
 blocks - Blocks
+accounts - Accounts
+transactions - Transactions

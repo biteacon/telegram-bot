@@ -19,6 +19,8 @@ public class Data {
     private LikelibBlocksAggregate mLikelibBlocksAggregate;
     @SerializedName("likelib_accounts_aggregate")
     private LikelibAccountsAggregate mLikelibAccountsAggregate;
+    @SerializedName("likelib_transactions_aggregate")
+    private LikelibTransactionsAggregate mLikelibTransactionsAggregate;
 
     public List<LikelibTransaction> getLikelibTransactions() {
         return mLikelibTransactions;
@@ -58,5 +60,13 @@ public class Data {
 
     public void setLikelibAccountsAggregate(LikelibAccountsAggregate likelibAccountsAggregate) {
         mLikelibAccountsAggregate = likelibAccountsAggregate;
+    }
+
+    public LikelibTransactionsAggregate getLikelibTransactionsAggregate() {
+        return mLikelibTransactionsAggregate;
+    }
+
+    public void setLikelibTransactionsAggregate(LikelibTransactionsAggregate likelibTransactionsAggregate) {
+        mLikelibTransactionsAggregate = likelibTransactionsAggregate;
     }
 }

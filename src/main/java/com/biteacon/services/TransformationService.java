@@ -195,6 +195,37 @@ public class TransformationService {
         }
     }
 
+    public String getFormattedTransactions(GraphqlResponse transactions) {
+        String formattedTransaction = null;
+        if (isTransactionsCorrect(transactions)) {
+            formattedTransaction = transformTransactions(transactions.getData());
+        }
+        return formattedTransaction;
+    }
+
+    private String transformTransactions(Data data) {
+        Long txsTotalCount = data.getLikelibTransactionsAggregate().getAggregate().getCount();
+        List<LikelibTransaction> txs = data.getLikelibTransactions();
+        StringBuilder transformation = new StringBuilder("<b>Transactions(</b><code>" + txs.size());
+        if (txsTotalCount > txs.size())
+            transformation.append("</code> of <code>").append(txsTotalCount).append("</code><b>):</b>\n\n");
+        else transformation.append("</code><b>):</b>\n\n");
+        for (LikelibTransaction transaction : txs) {
+            transformation.append("<b>Hash:</b> ").append(getLinkedHash(transaction.getHash())).
+                    append(" <b>Status: </b><code>").append(transaction.getStatus()).
+                    append("</code> <b>Type:</b> <code>").append(transaction.getType()).
+                    append("</code> <b>Timestamp:</b> <code>").append(transaction.getTimestamp()).append("</code>\n\n");
+        }
+        return transformation.toString();
+    }
+
+    private boolean isTransactionsCorrect(GraphqlResponse transactions) {
+        return transactions != null && transactions.getData() != null && transactions.getData().getLikelibTransactions() != null &&
+                transactions.getData().getLikelibTransactions().size() > 0 && transactions.getData().getLikelibTransactionsAggregate() != null &&
+                transactions.getData().getLikelibTransactionsAggregate().getAggregate() != null &&
+                transactions.getData().getLikelibTransactionsAggregate().getAggregate().getCount() >= transactions.getData().getLikelibTransactions().size();
+    }
+
     public String getFormattedTransaction(GraphqlResponse transaction) {
         String formattedTransaction = null;
         if (transaction != null && transaction.getData() != null && transaction.getData().getLikelibTransactions() != null
@@ -205,7 +236,7 @@ public class TransformationService {
 
     private String transformTransaction(LikelibTransaction transaction) {
         StringBuilder transformation = new StringBuilder(
-                "<b>Transaction</b>\n<b>Hash:</b> " + getLinkedHash(transaction.getHash()) +
+                "<b>Transaction:</b>\n<b>Hash:</b> " + getLinkedHash(transaction.getHash()) +
                         "\n<b>Block height:</b> " + getLinkedBlock(transaction.getBlockHeight()) +
                         "\n<b>Amount:</b> <code>" + transaction.getAmount() +
                         "</code>\n<b>Account from:</b> " + getLinkedAddress(transaction.getAccountFrom()) +

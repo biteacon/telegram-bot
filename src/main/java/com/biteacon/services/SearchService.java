@@ -144,6 +144,26 @@ public class SearchService {
                 "}\n";
     }
 
+    public HttpResponse<?> getTransactions() throws SearchException {
+        return executeQuery(getRequestBody(getTransactionsRequest()));
+    }
+
+    private String getTransactionsRequest() {
+        return "query MyQuery {\n" +
+                "  likelib_transactions(order_by: {timestamp: desc}, limit: " + ApplicationConstants.TRANSACTIONS_PER_PAGE + ") {\n" +
+                "    hash\n" +
+                "    status\n" +
+                "    timestamp\n" +
+                "    type\n" +
+                "  }\n" +
+                "  likelib_transactions_aggregate {\n" +
+                "    aggregate {\n" +
+                "      count\n" +
+                "    }\n" +
+                "  }" +
+                "}\n";
+    }
+
     public HttpResponse<?> getTransactionByHash(String hash) throws SearchException {
         return executeQuery(getRequestBody(getTransactionByHashRequest(hash)));
     }
