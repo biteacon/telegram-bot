@@ -1,9 +1,6 @@
 package com.biteacon.services;
 
-import com.biteacon.commands.Command;
-import com.biteacon.commands.HelpCommand;
-import com.biteacon.commands.LastBlockCommand;
-import com.biteacon.commands.StartCommand;
+import com.biteacon.commands.*;
 import com.biteacon.commands.brute_commands.AccountByAddressCommand;
 import com.biteacon.commands.brute_commands.BlockByHashCommand;
 import com.biteacon.commands.brute_commands.BlockByHeightCommand;
@@ -29,6 +26,7 @@ public class CommandOrchestrator {
         HelpCommand helpCommand = new HelpCommand();
         StartCommand startCommand = new StartCommand();
         LastBlockCommand lastBlockCommand = new LastBlockCommand();
+        HelloCommand helloCommand = new HelloCommand();
         commands = new HashMap<>(){{
             put(Commands.HELP, helpCommand);
             put(Commands.HELP2, helpCommand);
@@ -36,6 +34,10 @@ public class CommandOrchestrator {
             put(Commands.START2, startCommand);
             put(Commands.LAST_BLOCK, lastBlockCommand);
             put(Commands.LAST_BLOCK2, lastBlockCommand);
+            put(Commands.HELLO, helloCommand);
+            put(Commands.HELLO2, helloCommand);
+            put(Commands.HELLO3, helloCommand);
+            put(Commands.HELLO4, helloCommand);
         }};
         bruteCommands = new HashMap<>(){{
             put(Commands.ACCOUNT_BY_ADDRESS, new AccountByAddressCommand());
