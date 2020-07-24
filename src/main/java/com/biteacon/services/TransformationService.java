@@ -60,7 +60,7 @@ public class TransformationService {
         if (isAccountsCorrect(response))
             formattedContracts = transformContracts(response.getData());
         if (isContractsCorrect(response))
-            formattedContracts = Messages.NOT_FOUND;
+            formattedContracts = Messages.CONTRACT_NOT_FOUND;
         return formattedContracts;
     }
 

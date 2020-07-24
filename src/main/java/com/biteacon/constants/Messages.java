@@ -2,6 +2,7 @@ package com.biteacon.constants;
 
 public class Messages {
     public static final String NOT_FOUND = "not found!";
+    public static final String CONTRACT_NOT_FOUND = "Sorry, but no contracts were found.";
     public static final String ERROR = "error";
     public static final String START_COMMAND = "<b>What can this bot do?</b>\n\n" +
             "Welcome! This is the <b>Biteacon Bot</b>, it was created specially for <b>UTON HACK 2.0</b>. " +
