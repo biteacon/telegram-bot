@@ -2,3 +2,4 @@ help - Help
 start - Start
 lastblock - Last block
 hi - Hello
+blocks - Blocks

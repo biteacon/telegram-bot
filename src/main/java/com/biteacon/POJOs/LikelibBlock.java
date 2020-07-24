@@ -26,6 +26,8 @@ public class LikelibBlock {
     private LocalDateTime mTimestamp;
     @SerializedName("transactions")
     private List<Transaction> mTransactions;
+    @SerializedName("transactions_aggregate")
+    private TransactionsAggregate mTransactionsAggregate;
 
     public String getCoinbase() {
         return mCoinbase;
@@ -83,4 +85,11 @@ public class LikelibBlock {
         mTransactions = transactions;
     }
 
+    public TransactionsAggregate getTransactionsAggregate() {
+        return mTransactionsAggregate;
+    }
+
+    public void setTransactionsAggregate(TransactionsAggregate transactionsAggregate) {
+        mTransactionsAggregate = transactionsAggregate;
+    }
 }

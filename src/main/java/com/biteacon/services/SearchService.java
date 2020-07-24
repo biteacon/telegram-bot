@@ -67,6 +67,29 @@ public class SearchService {
                 "}\n";
     }
 
+    public HttpResponse<?> getBlocks() throws SearchException {
+        return executeQuery(getRequestBody(getBlocksRequest()));
+    }
+
+    private String getBlocksRequest() {
+        return "query MyQuery {\n" +
+                "  likelib_blocks(order_by: {height: desc}, limit: " + ApplicationConstants.BLOCKS_BER_PAGE + ") {\n" +
+                "    height\n" +
+                "    timestamp\n" +
+                "    transactions_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }" +
+                "  }\n" +
+                "  likelib_blocks_aggregate {\n" +
+                "    aggregate {\n" +
+                "      count\n" +
+                "    }\n" +
+                "  }" +
+                "}\n";
+    }
+
     public HttpResponse<?> getBlockByHeight(String height) throws SearchException {
         return executeQuery(getRequestBody(getBlockByHeightRequest(height)));
     }

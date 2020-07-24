@@ -54,6 +54,37 @@ public class TransformationService {
                 && account.getTransactionsByAccountTo().size() <= account.getTransactionsByAccountToAggregate().getAggregate().getCount();
     }
 
+    public String getFormattedBlocks(GraphqlResponse response) {
+        String formattedBlock = null;
+        if (isBlocksCorrect(response))
+            formattedBlock = transformBlocks(response.getData());
+        return formattedBlock;
+    }
+
+    private String transformBlocks(Data data) {
+        Long blocksTotalCount = data.getLikelibBlocksAggregate().getAggregate().getCount();
+        List<LikelibBlock> blocks = data.getLikelibBlocks();
+        StringBuilder transformation = new StringBuilder("<b>Blocks(</b><code>" + blocks.size());
+        if (blocksTotalCount > blocks.size())
+            transformation.append("</code> of <code>" + blocksTotalCount + "</code><b>):</b>\n\n");
+        for (LikelibBlock block : blocks) {
+            transformation.append("<b>Height:</b> /").append(block.getHeight()).
+                    append(" <b>Txs: </b><code>").append(block.getTransactionsAggregate().getAggregate().getCount()).
+                    append("</code> <b>Timestamp:</b> <code>").append(block.getTimestamp()).append("</code>\n");
+        }
+        return transformation.toString();
+    }
+
+    private boolean isBlocksCorrect(GraphqlResponse response) {
+        return response != null &&
+                response.getData() != null &&
+                response.getData().getLikelibBlocks() != null &&
+                response.getData().getLikelibBlocks().size() > 0 &&
+                response.getData().getLikelibBlocksAggregate() != null &&
+                response.getData().getLikelibBlocksAggregate().getAggregate() != null &&
+                response.getData().getLikelibBlocksAggregate().getAggregate().getCount() >= response.getData().getLikelibBlocks().size();
+    }
+
     public String getFormattedBlock(GraphqlResponse block) {
         String formattedBlock = null;
         if (block != null && block.getData() != null && block.getData().getLikelibBlocks() != null
