@@ -2,6 +2,7 @@ package com.biteacon.services;
 
 import com.biteacon.POJOs.*;
 import com.biteacon.constants.ApplicationConstants;
+import com.biteacon.constants.Messages;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -52,6 +53,43 @@ public class TransformationService {
     private boolean isAccountCorrect(LikelibAccount account) {
         return account.getTransactions().size() <= account.getTransactionsAggregate().getAggregate().getCount()
                 && account.getTransactionsByAccountTo().size() <= account.getTransactionsByAccountToAggregate().getAggregate().getCount();
+    }
+
+    public String getFormattedContracts(GraphqlResponse response) {
+        String formattedContracts = null;
+        if (isAccountsCorrect(response))
+            formattedContracts = transformContracts(response.getData());
+        if (isContractsCorrect(response))
+            formattedContracts = Messages.NOT_FOUND;
+        return formattedContracts;
+    }
+
+    private boolean isContractsCorrect(GraphqlResponse response) {
+        return response != null &&
+                response.getData() != null &&
+                response.getData().getLikelibAccounts() != null &&
+                response.getData().getLikelibAccounts().size() == 0 &&
+                response.getData().getLikelibAccountsAggregate() != null &&
+                response.getData().getLikelibAccountsAggregate().getAggregate() != null &&
+                response.getData().getLikelibAccountsAggregate().getAggregate().getCount() >= response.getData().getLikelibAccounts().size();
+    }
+
+    private String transformContracts(Data data) {
+        Long contractsTotalCount = data.getLikelibAccountsAggregate().getAggregate().getCount();
+        List<LikelibAccount> contracts = data.getLikelibAccounts();
+        StringBuilder transformation = new StringBuilder("<b>Contracts(</b><code>" + contracts.size());
+        if (contractsTotalCount > contracts.size())
+            transformation.append("</code> of <code>").append(contractsTotalCount).append("</code><b>):</b>\n\n");
+        else transformation.append("</code><b>):</b>\n\n");
+        for (LikelibAccount contract : contracts) {
+            transformation.append("<b>Address:</b> /").append(contract.getAddress()).
+                    append(" <b>Balance: </b><code>").append(contract.getBalance()).
+                    append("</code> <b>Txs: </b><code>").append(
+                    contract.getTransactionsAggregate().getAggregate().getCount() +
+                            contract.getTransactionsByAccountToAggregate().getAggregate().getCount()).
+                    append("</code>\n\n");
+        }
+        return transformation.toString();
     }
 
     public String getFormattedAccounts(GraphqlResponse response) {

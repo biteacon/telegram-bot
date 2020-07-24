@@ -5,3 +5,4 @@ hi - Hello
 blocks - Blocks
 accounts - Accounts
 transactions - Transactions
+contracts - Contracts

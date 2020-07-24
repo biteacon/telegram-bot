@@ -67,6 +67,34 @@ public class SearchService {
                 "}\n";
     }
 
+    public HttpResponse<?> getContracts() throws SearchException {
+        return executeQuery(getRequestBody(getContractsRequest()));
+    }
+
+    private String getContractsRequest() {
+        return "query MyQuery {\n" +
+                "  likelib_accounts(order_by: {balance: desc}, limit: " + ApplicationConstants.CONTRACTS_PER_PAGE + ", where: {type: {_eq: \\\"Contract\\\"}}) {\n" +
+                "    address\n" +
+                "    balance\n" +
+                "    transactionsByAccountTo_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "    transactions_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }" +
+                "  likelib_accounts_aggregate {\n" +
+                "    aggregate {\n" +
+                "      count\n" +
+                "    }\n" +
+                "  }" +
+                "}\n";
+    }
+
     public HttpResponse<?> getAccounts() throws SearchException {
         return executeQuery(getRequestBody(getAccountsRequest()));
     }
