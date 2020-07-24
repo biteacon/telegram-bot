@@ -14,15 +14,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommandOrchestrator {
+public class CommandOrchestratorService {
     private final Map<String, Command> commands;
     private final Map<String, Command> bruteCommands;
 
-    public static CommandOrchestrator getInstance() {
+    public static CommandOrchestratorService getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
-    private CommandOrchestrator() {
+    private CommandOrchestratorService() {
         HelpCommand helpCommand = new HelpCommand();
         StartCommand startCommand = new StartCommand();
         LastBlockCommand lastBlockCommand = new LastBlockCommand();
@@ -96,6 +96,6 @@ public class CommandOrchestrator {
     }
 
     private static class SingletonHolder {
-        private static final CommandOrchestrator INSTANCE = new CommandOrchestrator();
+        private static final CommandOrchestratorService INSTANCE = new CommandOrchestratorService();
     }
 }

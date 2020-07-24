@@ -3,7 +3,7 @@ package com.biteacon;
 import com.biteacon.constants.BotConfig;
 import com.biteacon.constants.Messages;
 import com.biteacon.entities.CommandResponse;
-import com.biteacon.services.CommandOrchestrator;
+import com.biteacon.services.CommandOrchestratorService;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -17,7 +17,7 @@ public class ExplorerBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-            CommandResponse response = CommandOrchestrator.getInstance().matchCommands(messageText);
+            CommandResponse response = CommandOrchestratorService.getInstance().matchCommands(messageText);
 
             try {
                 if (response == null || response.getResponseMessage() == null) {
