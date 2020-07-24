@@ -1,8 +1,9 @@
-help - Help
-start - Start
-lastblock - Last block
-hi - Hello
-blocks - Blocks
-accounts - Accounts
-transactions - Transactions
-contracts - Contracts
+help - to read about specific command
+lastblock - to get the last block
+accounts - to get a list of accounts
+blocks - to get a list of blocks
+transactions - to get a list of transactions
+contracts - o get a list of smart contracts
+hi - say hello to everyone!
+start - what can this bot do?
+inviteme - get a chance for an invite to biteacon.xyz!
