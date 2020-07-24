@@ -31,6 +31,7 @@ public class CommandOrchestratorService {
         AccountsCommand accountsCommand = new AccountsCommand();
         TransactionsCommand transactionsCommand = new TransactionsCommand();
         ContractsCommand contractsCommand = new ContractsCommand();
+        InviteMeCommand inviteMeCommand = new InviteMeCommand();
         commands = new HashMap<>(){{
             put(Commands.HELP, helpCommand);
             put(Commands.HELP2, helpCommand);
@@ -50,6 +51,8 @@ public class CommandOrchestratorService {
             put(Commands.TRANSACTIONS2, transactionsCommand);
             put(Commands.CONTRACTS, contractsCommand);
             put(Commands.CONTRACTS2, contractsCommand);
+            put(Commands.INVITE_ME, inviteMeCommand);
+            put(Commands.INVITE_ME2, inviteMeCommand);
         }};
         bruteCommands = new HashMap<>(){{
             put(Commands.ACCOUNT_BY_ADDRESS, new AccountByAddressCommand());
