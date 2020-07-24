@@ -54,6 +54,42 @@ public class TransformationService {
                 && account.getTransactionsByAccountTo().size() <= account.getTransactionsByAccountToAggregate().getAggregate().getCount();
     }
 
+    public String getFormattedAccounts(GraphqlResponse response) {
+        String formattedAccounts = null;
+        if (isAccountsCorrect(response))
+            formattedAccounts = transformAccounts(response.getData());
+        return formattedAccounts;
+    }
+
+    private String transformAccounts(Data data) {
+        Long accountsTotalCount = data.getLikelibAccountsAggregate().getAggregate().getCount();
+        List<LikelibAccount> accounts = data.getLikelibAccounts();
+        StringBuilder transformation = new StringBuilder("<b>Accounts(</b><code>" + accounts.size());
+        if (accountsTotalCount > accounts.size())
+            transformation.append("</code> of <code>").append(accountsTotalCount).append("</code><b>):</b>\n\n");
+        else transformation.append("</code><b>):</b>\n\n");
+        for (LikelibAccount account : accounts) {
+            transformation.append("<b>Address:</b> /").append(account.getAddress()).
+                    append(" <b>Balance: </b><code>").append(account.getBalance()).
+                    append("</code> <b>Type:</b> <code>").append(account.getType()).
+                    append("</code> <b>Txs: </b><code>").append(
+                            account.getTransactionsAggregate().getAggregate().getCount() +
+                                    account.getTransactionsByAccountToAggregate().getAggregate().getCount()).
+                    append("</code> <b>Mined blocks:</b> <code>").append(account.getBlocksAggregate().getAggregate().getCount()).append("</code>\n\n");
+        }
+        return transformation.toString();
+    }
+
+    private boolean isAccountsCorrect(GraphqlResponse response) {
+        return response != null &&
+                response.getData() != null &&
+                response.getData().getLikelibAccounts() != null &&
+                response.getData().getLikelibAccounts().size() > 0 &&
+                response.getData().getLikelibAccountsAggregate() != null &&
+                response.getData().getLikelibAccountsAggregate().getAggregate() != null &&
+                response.getData().getLikelibAccountsAggregate().getAggregate().getCount() >= response.getData().getLikelibAccounts().size();
+    }
+
     public String getFormattedBlocks(GraphqlResponse response) {
         String formattedBlock = null;
         if (isBlocksCorrect(response))

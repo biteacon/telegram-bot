@@ -67,13 +67,47 @@ public class SearchService {
                 "}\n";
     }
 
+    public HttpResponse<?> getAccounts() throws SearchException {
+        return executeQuery(getRequestBody(getAccountsRequest()));
+    }
+
+    private String getAccountsRequest() {
+        return "query MyQuery {\n" +
+                "  likelib_accounts(order_by: {balance: desc}, limit: " + ApplicationConstants.ACCOUNTS_PER_PAGE + ") {\n" +
+                "    address\n" +
+                "    balance\n" +
+                "    type\n" +
+                "    blocks_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "    transactionsByAccountTo_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "    transactions_aggregate {\n" +
+                "      aggregate {\n" +
+                "        count\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }" +
+                "  likelib_accounts_aggregate {\n" +
+                "    aggregate {\n" +
+                "      count\n" +
+                "    }\n" +
+                "  }" +
+                "}\n";
+    }
+
     public HttpResponse<?> getBlocks() throws SearchException {
         return executeQuery(getRequestBody(getBlocksRequest()));
     }
 
     private String getBlocksRequest() {
         return "query MyQuery {\n" +
-                "  likelib_blocks(order_by: {height: desc}, limit: " + ApplicationConstants.BLOCKS_BER_PAGE + ") {\n" +
+                "  likelib_blocks(order_by: {height: desc}, limit: " + ApplicationConstants.BLOCKS_PER_PAGE + ") {\n" +
                 "    height\n" +
                 "    timestamp\n" +
                 "    transactions_aggregate {\n" +

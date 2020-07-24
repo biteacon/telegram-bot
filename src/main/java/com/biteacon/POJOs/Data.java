@@ -3,6 +3,7 @@ package com.biteacon.POJOs;
 
 import java.util.List;
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
@@ -16,6 +17,8 @@ public class Data {
     private List<LikelibTransaction> mLikelibTransactions;
     @SerializedName("likelib_blocks_aggregate")
     private LikelibBlocksAggregate mLikelibBlocksAggregate;
+    @SerializedName("likelib_accounts_aggregate")
+    private LikelibAccountsAggregate mLikelibAccountsAggregate;
 
     public List<LikelibTransaction> getLikelibTransactions() {
         return mLikelibTransactions;
@@ -47,5 +50,13 @@ public class Data {
 
     public void setLikelibBlocksAggregate(LikelibBlocksAggregate likelibBlocksAggregate) {
         mLikelibBlocksAggregate = likelibBlocksAggregate;
+    }
+
+    public LikelibAccountsAggregate getLikelibAccountsAggregate() {
+        return mLikelibAccountsAggregate;
+    }
+
+    public void setLikelibAccountsAggregate(LikelibAccountsAggregate likelibAccountsAggregate) {
+        mLikelibAccountsAggregate = likelibAccountsAggregate;
     }
 }

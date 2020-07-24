@@ -28,6 +28,7 @@ public class CommandOrchestrator {
         LastBlockCommand lastBlockCommand = new LastBlockCommand();
         HelloCommand helloCommand = new HelloCommand();
         BlocksCommand blocksCommand = new BlocksCommand();
+        AccountsCommand accountsCommand = new AccountsCommand();
         commands = new HashMap<>(){{
             put(Commands.HELP, helpCommand);
             put(Commands.HELP2, helpCommand);
@@ -41,6 +42,8 @@ public class CommandOrchestrator {
             put(Commands.HELLO4, helloCommand);
             put(Commands.BLOCKS, blocksCommand);
             put(Commands.BLOCKS2, blocksCommand);
+            put(Commands.ACCOUNTS, accountsCommand);
+            put(Commands.ACCOUNTS2, accountsCommand);
         }};
         bruteCommands = new HashMap<>(){{
             put(Commands.ACCOUNT_BY_ADDRESS, new AccountByAddressCommand());
