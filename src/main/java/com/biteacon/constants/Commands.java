@@ -21,6 +21,8 @@ public class Commands {
     public static final String TRANSACTIONS2 = "transactions";
     public static final String BALANCE = "/balance";
     public static final String BALANCE2 = "balance";
+    public static final String INVITE_ME = "/inviteme";
+    public static final String INVITE_ME2 = "inviteme";
 //    brute commands
     public static final String ACCOUNT_BY_ADDRESS = "accountByAddress";
     public static final String BLOCK_BY_HASH = "blockByHash";
