@@ -169,7 +169,7 @@ public class TransformationService {
 
     private String transformBlock(LikelibBlock block) {
         StringBuilder transformation = new StringBuilder(
-                "<b>Block</b>\n<b>Height:</b> " + getLinkedBlock(block.getHeight()) +
+                "<b>Block:</b>\n<b>Height:</b> " + getLinkedBlock(block.getHeight()) +
                 "\n<b>Hash:</b> " + getLinkedHash(block.getHash()) +
                 "\n<b>Coinbase:</b> " + getLinkedAddress(block.getCoinbase()) +
                 "\n<b>Previous block hash:</b> " + getLinkedHash(block.getPrevBlockHash()) +
