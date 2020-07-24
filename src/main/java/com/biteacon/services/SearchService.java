@@ -153,6 +153,8 @@ public class SearchService {
     }
 
     public HttpResponse<?> getBlockByHeight(String height) throws SearchException {
+        if (height !=null && height.length() > 0 && height.charAt(0) == '/')
+            height = height.substring(1);
         return executeQuery(getRequestBody(getBlockByHeightRequest(height)));
     }
 

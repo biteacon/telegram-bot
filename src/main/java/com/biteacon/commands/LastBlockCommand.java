@@ -28,14 +28,9 @@ public class LastBlockCommand implements Command {
     @Override
     public CommandResponse execute(String key) {
         try {
-            HttpResponse<?> response = SearchService.getInstance().getBlockByHeight(key);
+            HttpResponse<?> response = SearchService.getInstance().getLastBlock();
             String responseBodyString = response.body().toString();
             GraphqlResponse block = gson.fromJson(responseBodyString, GraphqlResponse.class);
-            if (block == null || block.getData() == null) {
-                response = SearchService.getInstance().getLastBlock();
-                responseBodyString = response.body().toString();
-                block = gson.fromJson(responseBodyString, GraphqlResponse.class);
-            }
             String formattedBlock = TransformationService.getInstance().getFormattedBlock(block);
             return new CommandResponse(formattedBlock);
         } catch (SearchException | JsonSyntaxException | NullPointerException e) {
