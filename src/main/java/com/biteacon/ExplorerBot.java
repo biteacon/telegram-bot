@@ -15,13 +15,10 @@ public class ExplorerBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
-            // Set variables
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
             CommandResponse response = CommandOrchestrator.getInstance().matchCommands(messageText);
 
-            // get QR file from text using defaults
-//            File file = QRCode.from(messageText).file();
             try {
                 if (response == null || response.getResponseMessage() == null) {
                     SendMessage message = new SendMessage().
