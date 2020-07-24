@@ -12,7 +12,7 @@ public class Messages {
             "\uD83E\uDD73\uD83E\uDD29\uD83D\uDE0E\nDon't stop just type:\n\n" +
             "/help - to read about specific command\n\n" +
             "Contact @dharapko if you have questions or feedback about the Bot.";
-    public static final String HELLO_COMMAND = "Hello my friend! I send you rays of good!";
+    public static final String HELLO_COMMAND = "Hello my friend! I send you rays of good! \uD83D\uDE4C\uD83C\uDFFB";
     public static final String HELP_COMMAND = "You can control me by sending these commands:\n\n" +
             "/help - to read about specific command\n\n" +
             "/lastblock - to get the last block\n\n" +
