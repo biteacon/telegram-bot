@@ -24,6 +24,53 @@ public class SearchService {
         duration = Duration.ofMinutes(1);
     }
 
+    public HttpResponse<?> insertUser(Long userId, String supersetUsername) throws SearchException {
+        return executeQuery(getRequestBody(insertUserRequest(String.valueOf(userId), supersetUsername)));
+    }
+
+    private String insertUserRequest(String userId, String supersetUsername) {
+        return "mutation MyMutation {\n" +
+                "  insert_bot_users(objects: {id: \\\"" + userId + "\\\", superset_account_username: \\\"" + supersetUsername + "\\\"}) {\n" +
+                "    returning {\n" +
+                "      id\n" +
+                "      superset_account {\n" +
+                "        password\n" +
+                "        username\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n";
+    }
+
+    public HttpResponse<?> getFreeSupersetAccount() throws SearchException {
+        return executeQuery(getRequestBody(getFreeSupersetAccountRequest()));
+    }
+
+    private String getFreeSupersetAccountRequest() {
+        return "query MyQuery {\n" +
+                "  get_free_superset_account(limit: 1) {\n" +
+                "    username\n" +
+                "    password\n" +
+                "  }\n" +
+                "}\n";
+    }
+
+    public HttpResponse<?> getUserById(Long userId) throws SearchException {
+        return executeQuery(getRequestBody(getUserByIdRequest(String.valueOf(userId))));
+    }
+
+    private String getUserByIdRequest(String userId) {
+        return "query MyQuery {\n" +
+                "  bot_users(where: {id: {_eq: \\\"" + userId + "\\\"}}) {\n" +
+                "    id\n" +
+                "    superset_account {\n" +
+                "      password\n" +
+                "      username\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n";
+    }
+
     public HttpResponse<?> getBlockByHash(String hash) throws SearchException {
         return executeQuery(getRequestBody(getBlockByHashRequest(hash)));
     }
