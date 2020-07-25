@@ -19,7 +19,7 @@ public class LikelibTransaction {
     @SerializedName("block_height")
     private Long mBlockHeight;
     @SerializedName("data")
-    private Data mData;
+    private String mData;
     @SerializedName("fee")
     private Long mFee;
     @SerializedName("fee_left")
@@ -27,7 +27,7 @@ public class LikelibTransaction {
     @SerializedName("hash")
     private String mHash;
     @SerializedName("message")
-    private Object mMessage;
+    private String mMessage;
     @SerializedName("sign")
     private String mSign;
     @SerializedName("status")
@@ -69,11 +69,11 @@ public class LikelibTransaction {
         mBlockHeight = blockHeight;
     }
 
-    public Data getData() {
+    public String getData() {
         return mData;
     }
 
-    public void setData(Data data) {
+    public void setData(String data) {
         mData = data;
     }
 
@@ -101,11 +101,11 @@ public class LikelibTransaction {
         mHash = hash;
     }
 
-    public Object getMessage() {
+    public String getMessage() {
         return mMessage;
     }
 
-    public void setMessage(Object message) {
+    public void setMessage(String message) {
         mMessage = message;
     }
 
