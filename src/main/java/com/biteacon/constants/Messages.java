@@ -24,7 +24,8 @@ public class Messages {
             "/hi - say hello to everyone!\n\n" +
             "/start - what can this bot do?\n" +
             "------------------------------\n" +
-            "/inviteme - get a chance for an invite to biteacon.xyz!";
+            "/inviteme - get a chance for an invite to biteacon.xyz!\n\n" +
+            "Contact @dharapko if you have questions or feedback about the Bot.";
     public static final String INVITE_ME_COMMAND = "Sorry, but your time has not come yet..";
 
     private Messages() {};
