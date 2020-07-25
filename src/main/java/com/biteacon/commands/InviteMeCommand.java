@@ -56,7 +56,7 @@ public class InviteMeCommand implements Command {
 //                    todo: create new user
                         response = SearchService.getInstance().insertUser(
                                 request.getChatId(),
-                                user.getData().getGetFreeSupersetAccount().get(0).getUsername()
+                                user.getData().getBotGetFreeSupersetAccount().get(0).getUsername()
                         );
                         responseBodyString = response.body().toString();
                         GraphqlResponse insertResponse = gson.fromJson(responseBodyString, GraphqlResponse.class);
@@ -80,11 +80,11 @@ public class InviteMeCommand implements Command {
     }
 
     private boolean isSupersetAccountCorrect(GraphqlResponse user) {
-        return user != null && user.getData() != null && user.getData().getGetFreeSupersetAccount() != null && 
-                user.getData().getGetFreeSupersetAccount().size() > 0 &&
-                user.getData().getGetFreeSupersetAccount().get(0) != null &&
-                user.getData().getGetFreeSupersetAccount().get(0).getPassword() != null &&
-                user.getData().getGetFreeSupersetAccount().get(0).getUsername() != null;
+        return user != null && user.getData() != null && user.getData().getBotGetFreeSupersetAccount() != null &&
+                user.getData().getBotGetFreeSupersetAccount().size() > 0 &&
+                user.getData().getBotGetFreeSupersetAccount().get(0) != null &&
+                user.getData().getBotGetFreeSupersetAccount().get(0).getPassword() != null &&
+                user.getData().getBotGetFreeSupersetAccount().get(0).getUsername() != null;
     }
 
     private boolean isInsertResponseCorrect(GraphqlResponse insertResponse) {

@@ -48,7 +48,7 @@ public class SearchService {
 
     private String getFreeSupersetAccountRequest() {
         return "query MyQuery {\n" +
-                "  get_free_superset_account(limit: 1) {\n" +
+                "  bot_get_free_superset_account(limit: 1) {\n" +
                 "    username\n" +
                 "    password\n" +
                 "  }\n" +

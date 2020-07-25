@@ -21,8 +21,8 @@ public class Data {
     private LikelibAccountsAggregate mLikelibAccountsAggregate;
     @SerializedName("likelib_transactions_aggregate")
     private LikelibTransactionsAggregate mLikelibTransactionsAggregate;
-    @SerializedName("get_free_superset_account")
-    private List<GetFreeSupersetAccount> mGetFreeSupersetAccount;
+    @SerializedName("bot_get_free_superset_account")
+    private List<BotGetFreeSupersetAccount> mBotGetFreeSupersetAccount;
     @SerializedName("bot_users")
     private List<BotUser> mBotUsers;
     @SerializedName("insert_bot_users")
@@ -76,12 +76,12 @@ public class Data {
         mLikelibTransactionsAggregate = likelibTransactionsAggregate;
     }
 
-    public List<GetFreeSupersetAccount> getGetFreeSupersetAccount() {
-        return mGetFreeSupersetAccount;
+    public List<BotGetFreeSupersetAccount> getBotGetFreeSupersetAccount() {
+        return mBotGetFreeSupersetAccount;
     }
 
-    public void setGetFreeSupersetAccount(List<GetFreeSupersetAccount> getFreeSupersetAccount) {
-        mGetFreeSupersetAccount = getFreeSupersetAccount;
+    public void setBotGetFreeSupersetAccount(List<BotGetFreeSupersetAccount> botGetFreeSupersetAccount) {
+        mBotGetFreeSupersetAccount = botGetFreeSupersetAccount;
     }
 
     public List<BotUser> getBotUsers() {
