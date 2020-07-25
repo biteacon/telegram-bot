@@ -184,12 +184,12 @@ public class TransformationService {
         if (txOutTotalCount > 0 || txInTotalCount > 0) {
             long txsCount = txOutTotalCount + txInTotalCount;
             transformation.
-                    append("\n\n<b>Transactions(<code>").
+                    append("\n\n<b>Transactions</b>(<code>").
                     append(txsCount).
                     append("</code>").
                     append("):\n");
             if (txOutTotalCount > 0) {
-                transformation.append("Txs out(<code>");
+                transformation.append("<b>Txs out(<code>");
                 if (txOutTotalCount > ApplicationConstants.ACCOUNT_TXS_OUT_PER_PAGE)
                     transformation.append(ApplicationConstants.ACCOUNT_TXS_OUT_PER_PAGE).append("</code> of <code>").
                             append(txOutTotalCount);
@@ -203,7 +203,7 @@ public class TransformationService {
                 }
             }
             if (txInTotalCount > 0) {
-                transformation.append("Txs in(<code>");
+                transformation.append("<b>Txs in(<code>");
                 if (txInTotalCount > ApplicationConstants.ACCOUNT_TXS_IN_PER_PAGE)
                     transformation.append(ApplicationConstants.ACCOUNT_TXS_IN_PER_PAGE).append("</code> of <code>").
                             append(txInTotalCount);
