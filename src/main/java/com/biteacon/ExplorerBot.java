@@ -2,6 +2,7 @@ package com.biteacon;
 
 import com.biteacon.constants.BotConfig;
 import com.biteacon.constants.Messages;
+import com.biteacon.entities.CommandRequest;
 import com.biteacon.entities.CommandResponse;
 import com.biteacon.services.CommandOrchestratorService;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -17,7 +18,8 @@ public class ExplorerBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-            CommandResponse response = CommandOrchestratorService.getInstance().matchCommands(messageText);
+            CommandRequest commandRequest = new CommandRequest(chatId, messageText);
+            CommandResponse response = CommandOrchestratorService.getInstance().matchCommands(commandRequest);
 
             try {
                 if (response == null || response.getResponseMessage() == null) {

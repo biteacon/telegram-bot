@@ -7,6 +7,7 @@ import com.biteacon.commands.brute_commands.BlockByHeightCommand;
 import com.biteacon.commands.brute_commands.TransactionByHashCommand;
 import com.biteacon.constants.Commands;
 import com.biteacon.constants.Messages;
+import com.biteacon.entities.CommandRequest;
 import com.biteacon.entities.CommandResponse;
 
 import java.util.ArrayList;
@@ -62,10 +63,12 @@ public class CommandOrchestratorService {
         }};
     }
 
-    public CommandResponse matchCommands(String request) {
-        Command command = commands.get(request.toLowerCase());
+    public CommandResponse matchCommands(CommandRequest request) {
+        if (request == null || request.getRequestMessage() == null)
+            return null;
+        Command command = commands.get(request.getRequestMessage().toLowerCase());
         if (command == null) {
-            for (String commandName : getCommandNamesByRequest(request)) {
+            for (String commandName : getCommandNamesByRequest(request.getRequestMessage())) {
                 CommandResponse result = bruteCommands.get(commandName).execute(request);
                 if (result != null) //todo:change it (error code or something else)
                     return result;

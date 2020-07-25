@@ -1,6 +1,7 @@
 package com.biteacon.commands;
 
 import com.biteacon.POJOs.GraphqlResponse;
+import com.biteacon.entities.CommandRequest;
 import com.biteacon.entities.CommandResponse;
 import com.biteacon.exceptions.SearchException;
 import com.biteacon.services.SearchService;
@@ -14,7 +15,7 @@ public class AccountsCommand implements Command {
     Gson gson = new Gson();
 
     @Override
-    public CommandResponse execute(String key) {
+    public CommandResponse execute(CommandRequest request) {
         try {
             HttpResponse<?> response = SearchService.getInstance().getAccounts();
             String responseBodyString = response.body().toString();
