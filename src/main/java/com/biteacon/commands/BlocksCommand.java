@@ -40,8 +40,8 @@ public class BlocksCommand implements Command{
             if (formattedBlock != null) {
                 List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
                 List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-                keyboardButtonsRow1.add(new InlineKeyboardButton().setText("\u2B05").setCallbackData("CallFi4a"));
-                keyboardButtonsRow1.add(new InlineKeyboardButton().setText("\u27A1").setCallbackData("CallFi4a"));
+                keyboardButtonsRow1.add(new InlineKeyboardButton().setText("\u2B05").setCallbackData("Left"));
+                keyboardButtonsRow1.add(new InlineKeyboardButton().setText("\u27A1").setCallbackData("Right"));
                 rowList.add(keyboardButtonsRow1);
                 InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup();
                 keyboard.setKeyboard(rowList);

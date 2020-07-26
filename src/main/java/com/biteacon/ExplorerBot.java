@@ -45,6 +45,16 @@ public class ExplorerBot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
+        } else if(update.hasCallbackQuery()) {
+            try {
+//                String callbackData = update.getCallbackQuery().getData();
+                String callbackData = "Sorry, but we temporarily disabled the pagination feature. \uD83D\uDE14";
+                execute(new SendMessage().
+                        setText(callbackData)
+                        .setChatId(update.getCallbackQuery().getMessage().getChatId()));
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
     }
 
