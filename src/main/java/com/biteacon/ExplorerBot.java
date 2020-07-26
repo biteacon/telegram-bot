@@ -32,19 +32,15 @@ public class ExplorerBot extends TelegramLongPollingBot {
                     if (response.getFile() != null) {
                         SendPhoto message = new SendPhoto().
                                 setChatId(chatId).
-                                setPhoto(response.getFile()).
-                                setCaption(response.getResponseMessage()).
-                                setParseMode("html").
-                                setReplyMarkup(response.getInlineKeyboardMarkup());
+                                setPhoto(response.getFile());
                         execute(message);
-                    } else {
+                    }
                         SendMessage message = new SendMessage().
                                 setChatId(chatId).
                                 setText(response.getResponseMessage()).
                                 setParseMode("html").
                                 setReplyMarkup(response.getInlineKeyboardMarkup());
                         execute(message);
-                    }
                 }
             } catch (TelegramApiException e) {
                 e.printStackTrace();
