@@ -34,13 +34,15 @@ public class ExplorerBot extends TelegramLongPollingBot {
                                 setChatId(chatId).
                                 setPhoto(response.getFile()).
                                 setCaption(response.getResponseMessage()).
-                                setParseMode("html");
+                                setParseMode("html").
+                                setReplyMarkup(response.getInlineKeyboardMarkup());
                         execute(message);
                     } else {
                         SendMessage message = new SendMessage().
                                 setChatId(chatId).
                                 setText(response.getResponseMessage()).
-                                setParseMode("html");
+                                setParseMode("html").
+                                setReplyMarkup(response.getInlineKeyboardMarkup());
                         execute(message);
                     }
                 }
